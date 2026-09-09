@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Create Account — Orbit LMS</title>
+  <link rel="stylesheet" href="css/globals.css" />
+  <link rel="stylesheet" href="css/components.css" />
+  <link rel="stylesheet" href="css/auth.css" />
+</head>
+<body>
+
+  <div class="auth-page">
+
+    <!-- LEFT PANEL -->
+    <div class="auth-panel" aria-hidden="true">
+
+      <div class="auth-panel-brand">
+        <div class="auth-panel-logo">O</div>
+        <span class="auth-panel-brand-name">Orbit LMS</span>
+      </div>
+
+      <div class="auth-panel-content">
+        <h1 class="auth-panel-title">
+          Start your onboarding<br/>journey the right way.
+        </h1>
+        <p class="auth-panel-desc">
+          Join Orbit LMS and get access to structured courses,
+          progress tracking, and direct mentor feedback — all in one place.
+        </p>
+
+        <div class="auth-panel-features">
+          <div class="auth-panel-feature">
+            <div class="auth-panel-feature-icon">🎓</div>
+            Access your onboarding course materials
+          </div>
+          <div class="auth-panel-feature">
+            <div class="auth-panel-feature-icon">📈</div>
+            Track progress with visual dashboards
+          </div>
+          <div class="auth-panel-feature">
+            <div class="auth-panel-feature-icon">🤝</div>
+            Get mentored and grow faster
+          </div>
+        </div>
+      </div>
+
+      <div class="auth-panel-footer">
+        © 2026 Orbit LMS. All rights reserved.
+      </div>
+
+    </div>
+
+
+    <!-- FORM PANEL -->
+    <div class="auth-form-panel">
+      <div class="auth-form-wrap">
+
+        <h2 class="auth-form-title">Create account</h2>
+        <p class="auth-form-subtitle">
+          Already have an account?
+          <a href="login.html">Log in here</a>
+        </p>
+
+        <form class="auth-form" id="register-form" novalidate>
+
+          <!-- Role Selector -->
+          <div class="form-group">
+            <label class="form-label">
+              I am a… <span class="required" aria-label="required">*</span>
+            </label>
+            <div class="role-selector" role="radiogroup" aria-label="Select your role">
+
+              <label class="role-option selected">
+                <input type="radio" name="role" value="intern" checked />
+                <span class="role-option-icon" aria-hidden="true">🎓</span>
+                <span class="role-option-label">Intern / New Employee</span>
+              </label>
+
+              <label class="role-option">
+                <input type="radio" name="role" value="mentor" />
+                <span class="role-option-icon" aria-hidden="true">👨‍💼</span>
+                <span class="role-option-label">Mentor / Supervisor</span>
+              </label>
+
+            </div>
+          </div>
+
+          <!-- Name Row -->
+          <div class="form-row-2">
+            <div class="form-group">
+              <label class="form-label" for="reg-firstname">
+                First name <span class="required" aria-label="required">*</span>
+              </label>
+              <input
+                type="text"
+                id="reg-firstname"
+                class="form-input"
+                placeholder="Jane"
+                autocomplete="given-name"
+                required
+              />
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="reg-lastname">
+                Last name <span class="required" aria-label="required">*</span>
+              </label>
+              <input
+                type="text"
+                id="reg-lastname"
+                class="form-input"
+                placeholder="Smith"
+                autocomplete="family-name"
+                required
+              />
+            </div>
+          </div>
+
+          <!-- Email -->
+          <div class="form-group">
+            <label class="form-label" for="reg-email">
+              Work email <span class="required" aria-label="required">*</span>
+            </label>
+            <div class="input-wrapper">
+              <svg class="input-icon" xmlns="http://www.w3.org/2000/svg" fill="none"
+                viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+                <path stroke-linecap="round" stroke-linejoin="round"
+                  d="M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25H4.5A2.25 2.25 0 012.25 17.25V6.75M21.75 6.75L12 13.5 2.25 6.75M21.75 6.75A2.25 2.25 0 0019.5 4.5H4.5A2.25 2.25 0 002.25 6.75"/>
+              </svg>
+              <input
+                type="email"
+                id="reg-email"
+                class="form-input"
+                placeholder="you@company.com"
+                autocomplete="email"
+                required
+              />
+            </div>
+          </div>
+
+          <!-- Department -->
+          <div class="form-group">
+            <label class="form-label" for="reg-department">Department</label>
+            <select id="reg-department" class="form-select">
+              <option value="" disabled selected>Select your department</option>
+              <option value="engineering">Engineering</option>
+              <option value="product">Product & Design</option>
+              <option value="marketing">Marketing</option>
+              <option value="hr">Human Resources</option>
+              <option value="finance">Finance</option>
+              <option value="operations">Operations</option>
+              <option value="other">Other</option>
+            </select>
+            <span class="form-hint">This helps us assign the right onboarding track.</span>
+          </div>
+
+          <!-- Password -->
+          <div class="form-group">
+            <label class="form-label" for="reg-password">
+              Password <span class="required" aria-label="required">*</span>
+            </label>
+            <div class="input-wrapper">
+              <svg class="input-icon" xmlns="http://www.w3.org/2000/svg" fill="none"
+                viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+                <path stroke-linecap="round" stroke-linejoin="round"
+                  d="M16.5 10.5V6.75a4.5 4.5 0 10-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 002.25-2.25v-6.75a2.25 2.25 0 00-2.25-2.25H6.75a2.25 2.25 0 00-2.25 2.25v6.75a2.25 2.25 0 002.25 2.25z"/>
+              </svg>
+              <input
+                type="password"
+                id="reg-password"
+                class="form-input"
+                placeholder="At least 8 characters"
+                autocomplete="new-password"
+                required
+              />
+              <span
+                class="input-icon-right toggle-password"
+                data-target="reg-password"
+                role="button"
+                aria-label="Toggle password visibility"
+                tabindex="0"
+              >👁</span>
+            </div>
+            <span class="form-hint">Minimum 8 characters.</span>
+          </div>
+
+          <!-- Confirm Password -->
+          <div class="form-group">
+            <label class="form-label" for="reg-confirm-password">
+              Confirm password <span class="required" aria-label="required">*</span>
+            </label>
+            <div class="input-wrapper">
+              <svg class="input-icon" xmlns="http://www.w3.org/2000/svg" fill="none"
+                viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+                <path stroke-linecap="round" stroke-linejoin="round"
+                  d="M16.5 10.5V6.75a4.5 4.5 0 10-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 002.25-2.25v-6.75a2.25 2.25 0 00-2.25-2.25H6.75a2.25 2.25 0 00-2.25 2.25v6.75a2.25 2.25 0 002.25 2.25z"/>
+              </svg>
+              <input
+                type="password"
+                id="reg-confirm-password"
+                class="form-input"
+                placeholder="Repeat your password"
+                autocomplete="new-password"
+                required
+              />
+            </div>
+          </div>
+
+          <!-- Terms -->
+          <div class="form-group">
+            <label class="form-check">
+              <input type="checkbox" class="form-check-input" id="terms" required />
+              <span class="form-check-label">
+                I agree to the <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a>
+              </span>
+            </label>
+          </div>
+
+          <!-- Submit -->
+          <button
+            type="submit"
+            id="register-submit"
+            class="btn btn-primary btn-block"
+          >
+            Create Account
+          </button>
+
+        </form>
+
+        <!-- Back to home -->
+        <p style="margin-top:2rem;text-align:center;font-size:0.875rem;color:var(--color-gray-500);">
+          <a href="index.html" style="color:var(--color-gray-500);">← Back to homepage</a>
+        </p>
+
+      </div>
+    </div>
+
+  </div>
+
+  <script src="js/utils.js"></script>
+  <script src="js/auth.js"></script>
+</body>
+</html>

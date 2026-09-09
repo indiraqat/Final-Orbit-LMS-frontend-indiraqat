@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Admin Dashboard — Orbit LMS</title>
+  <link rel="stylesheet" href="css/globals.css" />
+  <link rel="stylesheet" href="css/components.css" />
+  <link rel="stylesheet" href="css/dashboard.css" />
+</head>
+<body>
+
+  <div class="dashboard-sidebar-backdrop"></div>
+
+  <div class="dashboard-shell">
+
+    <!-- SIDEBAR -->
+    <aside class="dashboard-sidebar" aria-label="Dashboard navigation">
+      <div class="dashboard-sidebar-brand">
+        <div class="navbar-logo">O</div>
+        <span class="dashboard-sidebar-brand-name">Orbit <span>LMS</span></span>
+      </div>
+
+      <nav class="dashboard-nav" role="list">
+        <span class="dashboard-nav-label">Menu</span>
+
+        <a href="admin-dashboard.html" class="dashboard-nav-link active">
+          <span class="nav-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M3 10.5L12 3l9 7.5M5.25 9.75V19.5a.75.75 0 00.75.75h3.75v-6h4.5v6H18a.75.75 0 00.75-.75V9.75"/></svg>
+          </span>
+          Dashboard
+        </a>
+        <a href="manage-courses.html" class="dashboard-nav-link">
+          <span class="nav-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6.75C10.5 5.25 8 4.5 5.25 4.5v13.5c2.75 0 5.25.75 6.75 2.25 1.5-1.5 4-2.25 6.75-2.25V4.5c-2.75 0-5.25.75-6.75 2.25z"/></svg>
+          </span>
+          Manage Courses
+        </a>
+
+        <span class="dashboard-nav-label">Account</span>
+        <a href="profile.html" class="dashboard-nav-link">
+          <span class="nav-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.5 20.25a7.5 7.5 0 0115 0"/></svg>
+          </span>
+          Profile
+        </a>
+        <a href="settings.html" class="dashboard-nav-link">
+          <span class="nav-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="2.25"/><path stroke-linecap="round" stroke-linejoin="round" d="M10.5 3.75h3l.4 2.1a6.7 6.7 0 011.8.95l2-.85 1.5 2.6-1.65 1.42a6.7 6.7 0 010 2.16l1.65 1.42-1.5 2.6-2-.85a6.7 6.7 0 01-1.8.95l-.4 2.1h-3l-.4-2.1a6.7 6.7 0 01-1.8-.95l-2 .85-1.5-2.6 1.65-1.42a6.7 6.7 0 010-2.16L4.4 8.55l1.5-2.6 2 .85a6.7 6.7 0 011.8-.95z"/></svg>
+          </span>
+          Settings
+        </a>
+      </nav>
+
+      <div class="dashboard-sidebar-footer">
+        <div class="dashboard-user-card">
+          <div class="avatar avatar-md" style="background:#CFFAFE;color:#0E7490;">RA</div>
+          <div class="dashboard-user-info">
+            <div class="dashboard-user-name">Reza Ardiansyah</div>
+            <div class="dashboard-user-role">Mentor — Engineering</div>
+          </div>
+        </div>
+        <button class="btn btn-ghost btn-sm dashboard-logout-btn">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 9V5.25A2.25 2.25 0 0013.5 3h-6a2.25 2.25 0 00-2.25 2.25v13.5A2.25 2.25 0 007.5 21h6a2.25 2.25 0 002.25-2.25V15M18 12H9m9 0l-3-3m3 3l-3 3"/></svg>
+          Log out
+        </button>
+      </div>
+    </aside>
+
+    <!-- MAIN -->
+    <div class="dashboard-main">
+
+      <header class="dashboard-topbar">
+        <button class="dashboard-sidebar-toggle" aria-label="Toggle sidebar">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5M3.75 17.25h16.5"/></svg>
+        </button>
+        <span class="dashboard-topbar-title">Admin Dashboard</span>
+        <div class="dashboard-topbar-actions">
+          <button class="dashboard-icon-btn" aria-label="Notifications">
+            <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M14.86 17.25a2.5 2.5 0 01-4.72 0M18 8.25c0-3.24-2.5-5.75-6-5.75s-6 2.51-6 5.75c0 4.5-1.5 5.25-1.5 5.25h15s-1.5-.75-1.5-5.25z"/></svg>
+            <span class="ping" aria-hidden="true"></span>
+          </button>
+          <div class="avatar avatar-sm" style="background:#CFFAFE;color:#0E7490;">RA</div>
+        </div>
+      </header>
+
+      <main class="dashboard-content">
+
+        <!-- WELCOME BANNER -->
+        <section class="dashboard-welcome" aria-label="Welcome" style="grid-template-columns:1fr;">
+          <div>
+            <h1 class="dashboard-welcome-heading">Welcome back, Reza</h1>
+            <p class="dashboard-welcome-text" style="max-width:none;">
+              You're mentoring 8 interns across 3 courses. Manage your course
+              modules or check who's on your team below.
+            </p>
+          </div>
+        </section>
+
+        <!-- STATS -->
+        <section class="dashboard-stats-grid" aria-label="Program stats" style="grid-template-columns:repeat(3, 1fr);">
+          <div class="stat-card">
+            <div class="stat-card-icon purple">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M17 20.25v-1.5a3 3 0 00-3-3H8a3 3 0 00-3 3v1.5M12.5 9.75a3 3 0 10-3-3 3 3 0 003 3zM19.5 20.25v-1.5a3 3 0 00-2-2.83M16 5.13a3 3 0 010 5.74"/></svg>
+            </div>
+            <div class="stat-card-info">
+              <span class="stat-card-label">Total Interns</span>
+              <span class="stat-card-value">8</span>
+            </div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-card-icon cyan">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6.75C10.5 5.25 8 4.5 5.25 4.5v13.5c2.75 0 5.25.75 6.75 2.25 1.5-1.5 4-2.25 6.75-2.25V4.5c-2.75 0-5.25.75-6.75 2.25z"/></svg>
+            </div>
+            <div class="stat-card-info">
+              <span class="stat-card-label">Active Courses</span>
+              <span class="stat-card-value">3</span>
+            </div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-card-icon amber">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75l2 2 4-4M8.25 4.5h7.5a1.5 1.5 0 011.5 1.5v13.5a1.5 1.5 0 01-1.5 1.5h-7.5a1.5 1.5 0 01-1.5-1.5V6a1.5 1.5 0 011.5-1.5z"/></svg>
+            </div>
+            <div class="stat-card-info">
+              <span class="stat-card-label">Total Modules</span>
+              <span class="stat-card-value">17</span>
+            </div>
+          </div>
+        </section>
+
+        <!-- INTERN ROSTER -->
+        <section aria-label="Intern roster">
+          <div class="table-card">
+            <div class="table-card-head">
+              <span class="dashboard-section-title">Your Team</span>
+              <input type="text" class="search-input-sm" placeholder="Search interns...">
+            </div>
+            <div class="table-scroll">
+              <table class="data-table">
+                <thead>
+                  <tr>
+                    <th>Intern</th>
+                    <th>Courses Taken</th>
+                    <th>Courses To Take</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>
+                      <div class="roster-user">
+                        <div class="avatar avatar-sm" style="background:#E0E7FF;color:#3730A3;">JS</div>
+                        <div>
+                          <div class="roster-user-name">Jane Smith</div>
+                          <div class="roster-user-dept">Engineering</div>
+                        </div>
+                      </div>
+                    </td>
+                    <td>
+                      <div class="roster-badges">
+                        <span class="badge badge-success">Company Culture</span>
+                      </div>
+                    </td>
+                    <td>
+                      <div class="roster-badges">
+                        <span class="badge badge-info">Dev Environment Setup</span>
+                        <span class="badge badge-info">Workplace Policies</span>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <div class="roster-user">
+                        <div class="avatar avatar-sm" style="background:#DCFCE7;color:#166534;">BT</div>
+                        <div>
+                          <div class="roster-user-name">Budi Tanuwijaya</div>
+                          <div class="roster-user-dept">Product &amp; Design</div>
+                        </div>
+                      </div>
+                    </td>
+                    <td>
+                      <div class="roster-badges">
+                        <span class="badge badge-success">Company Culture</span>
+                        <span class="badge badge-success">Dev Environment Setup</span>
+                      </div>
+                    </td>
+                    <td>
+                      <div class="roster-badges">
+                        <span class="badge badge-info">Workplace Policies</span>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <div class="roster-user">
+                        <div class="avatar avatar-sm" style="background:#FEF3C7;color:#92400E;">NA</div>
+                        <div>
+                          <div class="roster-user-name">Nadia Amelia</div>
+                          <div class="roster-user-dept">Marketing</div>
+                        </div>
+                      </div>
+                    </td>
+                    <td>
+                      <span class="roster-empty">None yet</span>
+                    </td>
+                    <td>
+                      <div class="roster-badges">
+                        <span class="badge badge-info">Company Culture</span>
+                        <span class="badge badge-info">Workplace Policies</span>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <div class="roster-user">
+                        <div class="avatar avatar-sm" style="background:#CFFAFE;color:#0E7490;">FH</div>
+                        <div>
+                          <div class="roster-user-name">Farhan Hidayat</div>
+                          <div class="roster-user-dept">Engineering</div>
+                        </div>
+                      </div>
+                    </td>
+                    <td>
+                      <div class="roster-badges">
+                        <span class="badge badge-success">Company Culture</span>
+                        <span class="badge badge-success">Dev Environment Setup</span>
+                        <span class="badge badge-success">Workplace Policies</span>
+                      </div>
+                    </td>
+                    <td>
+                      <span class="roster-empty">None left</span>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        <!-- COURSE / MODULE MANAGEMENT -->
+        <section aria-label="Manage courses">
+          <div class="table-card" style="padding:var(--space-6);display:flex;align-items:center;justify-content:space-between;gap:var(--space-4);flex-wrap:wrap;">
+            <div>
+              <div class="dashboard-section-title" style="margin-bottom:var(--space-1);">Manage Courses</div>
+              <p class="settings-section-desc" style="margin-bottom:0;">Create, edit, and manage modules across all your courses.</p>
+            </div>
+            <a href="manage-courses.html" class="btn btn-primary">
+              Go to Manage Courses
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"/></svg>
+            </a>
+          </div>
+        </section>
+
+      </main>
+    </div>
+  </div>
+
+  <script src="js/utils.js"></script>
+  <script src="js/dashboard.js"></script>
+</body>
+</html>

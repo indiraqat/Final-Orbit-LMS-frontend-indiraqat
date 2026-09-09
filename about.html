@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>About — Orbit LMS</title>
+  <link rel="stylesheet" href="css/globals.css" />
+  <link rel="stylesheet" href="css/components.css" />
+  <link rel="stylesheet" href="css/layout.css" />
+  <link rel="stylesheet" href="css/home.css" />
+</head>
+<body>
+
+  <!-- NAVBAR -->
+  <nav class="navbar" aria-label="Main navigation">
+    <div class="container">
+      <div class="navbar-inner">
+        <a href="index.html" class="navbar-brand">
+          <div class="navbar-logo">O</div>
+          <span class="navbar-brand-name">Orbit <span>LMS</span></span>
+        </a>
+        <ul class="navbar-nav" role="list">
+          <li><a href="index.html#features" class="nav-link">Features</a></li>
+          <li><a href="index.html#courses" class="nav-link">Courses</a></li>
+          <li><a href="index.html#how-it-works" class="nav-link">How It Works</a></li>
+        </ul>
+        <div class="navbar-actions">
+          <a href="login.html" class="btn btn-ghost btn-sm">Log In</a>
+          <a href="register.html" class="btn btn-primary btn-sm">Get Started</a>
+        </div>
+        <button class="navbar-toggle" aria-label="Toggle mobile menu" aria-expanded="false">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+    <div class="navbar-mobile" aria-hidden="true">
+      <a href="index.html#features" class="nav-link">Features</a>
+      <a href="index.html#courses" class="nav-link">Courses</a>
+      <a href="index.html#how-it-works" class="nav-link">How It Works</a>
+      <div style="padding: 0.75rem 1rem; display: flex; flex-direction: column; gap: 0.5rem;">
+        <a href="login.html" class="btn btn-ghost btn-block">Log In</a>
+        <a href="register.html" class="btn btn-primary btn-block">Get Started</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ABOUT HERO -->
+  <section class="section-sm" aria-label="About Orbit LMS">
+    <div class="container" style="max-width: 760px;">
+      <span class="badge badge-primary mb-4">About</span>
+      <h1 style="margin-bottom: var(--space-4);">Onboarding shouldn't feel like guesswork.</h1>
+      <p class="text-muted" style="font-size: var(--text-lg); line-height: 1.7;">
+        Orbit LMS is a coursework project — a made-up onboarding platform built
+        to explore what a clean, structured internship and new-hire experience
+        could look like: materials to learn from, a quiz per module to check
+        understanding, and a simple way for interns and mentors to see where
+        things stand.
+      </p>
+    </div>
+  </section>
+
+  <!-- MISSION / STORY -->
+  <section class="section-sm" style="background: var(--color-gray-50);" aria-label="Our story">
+    <div class="container" style="max-width: 760px;">
+
+      <h2 class="mb-4">Why we built this</h2>
+      <p class="mb-4">
+        New interns and employees often get onboarded through a scattered mix
+        of documents, spreadsheets, and one-off messages. Orbit LMS imagines a
+        single place instead: modules broken into materials and mini quizzes,
+        with each module unlocking once the one before it is done.
+      </p>
+      <p class="mb-8">
+        Since this is a fictional project, none of the courses, companies, or
+        people referenced anywhere on this site are real.
+      </p>
+
+      <h2 class="mb-4">How it works, in short</h2>
+      <div class="grid-3 mb-8">
+        <div class="feature-card">
+          <div class="feature-icon">1</div>
+          <h3 class="feature-title">Learn</h3>
+          <p class="feature-text">Interns work through course materials at their own pace.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">2</div>
+          <h3 class="feature-title">Quiz</h3>
+          <p class="feature-text">Each module ends with a short quiz to check understanding.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">3</div>
+          <h3 class="feature-title">Share</h3>
+          <p class="feature-text">Interns print or save their quiz results and share them with their mentor.</p>
+        </div>
+      </div>
+
+      <h2 class="mb-4">A student project</h2>
+      <p class="mb-4">
+        Orbit LMS was built as a weekly coursework checkpoint, focused on
+        front-end structure and interaction — global design tokens, reusable
+        components, and static page layouts, without a backend behind it yet.
+      </p>
+
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="cta-section" aria-label="Call to Action">
+    <div class="container">
+      <div class="cta-inner">
+        <h2 class="cta-title">Curious what it looks like in practice?</h2>
+        <p class="cta-subtitle">Explore the sample courses and dashboards.</p>
+        <div style="display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;">
+          <a href="register.html" class="btn btn-white btn-lg">Create free account</a>
+          <a href="login.html" class="btn btn-lg" style="border-color:rgba(255,255,255,0.45);color:rgba(255,255,255,0.9);">I already have an account</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer" aria-label="Site footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <span class="navbar-brand-name">Orbit <span>LMS</span></span>
+          <p class="footer-tagline">Centralizing onboarding, training, and progress tracking for internship and new employee programs.</p>
+        </div>
+        <div>
+          <h4 class="footer-heading">Product</h4>
+          <ul class="footer-links">
+            <li><a href="index.html#features" class="footer-link">Features</a></li>
+            <li><a href="index.html#courses" class="footer-link">Courses</a></li>
+            <li><a href="index.html#how-it-works" class="footer-link">How It Works</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="footer-heading">Account</h4>
+          <ul class="footer-links">
+            <li><a href="login.html" class="footer-link">Log In</a></li>
+            <li><a href="register.html" class="footer-link">Register</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="footer-heading">Company</h4>
+          <ul class="footer-links">
+            <li><a href="about.html" class="footer-link">About</a></li>
+            <li><a href="privacy-policy.html" class="footer-link">Privacy Policy</a></li>
+            <li><a href="terms-of-service.html" class="footer-link">Terms of Service</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p class="footer-copy">© 2026 Orbit LMS. All rights reserved.</p>
+        <div class="footer-social" aria-label="Social links">
+          <a href="#" class="footer-social-link" aria-label="Instagram">IG</a>
+          <a href="#" class="footer-social-link" aria-label="LinkedIn">in</a>
+          <a href="#" class="footer-social-link" aria-label="Twitter">𝕏</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/utils.js"></script>
+</body>
+</html>

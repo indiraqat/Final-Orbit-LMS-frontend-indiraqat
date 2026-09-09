@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Developer Environment Setup &amp; Workflow — Orbit LMS</title>
+  <link rel="stylesheet" href="css/globals.css" />
+  <link rel="stylesheet" href="css/components.css" />
+  <link rel="stylesheet" href="css/dashboard.css" />
+</head>
+<body>
+
+  <div class="dashboard-sidebar-backdrop"></div>
+
+  <div class="dashboard-shell">
+
+    <!-- SIDEBAR -->
+    <aside class="dashboard-sidebar" aria-label="Dashboard navigation">
+      <div class="dashboard-sidebar-brand">
+        <div class="navbar-logo">O</div>
+        <span class="dashboard-sidebar-brand-name">Orbit <span>LMS</span></span>
+      </div>
+
+      <nav class="dashboard-nav" role="list">
+        <span class="dashboard-nav-label">Menu</span>
+
+        <a href="user-dashboard.html" class="dashboard-nav-link">
+          <span class="nav-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M3 10.5L12 3l9 7.5M5.25 9.75V19.5a.75.75 0 00.75.75h3.75v-6h4.5v6H18a.75.75 0 00.75-.75V9.75"/></svg>
+          </span>
+          Dashboard
+        </a>
+        <a href="courses.html" class="dashboard-nav-link active">
+          <span class="nav-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6.75C10.5 5.25 8 4.5 5.25 4.5v13.5c2.75 0 5.25.75 6.75 2.25 1.5-1.5 4-2.25 6.75-2.25V4.5c-2.75 0-5.25.75-6.75 2.25z"/></svg>
+          </span>
+          My Courses
+        </a>
+        <a href="quizzes.html" class="dashboard-nav-link">
+          <span class="nav-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75l2 2 4-4M8.25 4.5h7.5a1.5 1.5 0 011.5 1.5v13.5a1.5 1.5 0 01-1.5 1.5h-7.5a1.5 1.5 0 01-1.5-1.5V6a1.5 1.5 0 011.5-1.5z"/></svg>
+          </span>
+          Quizzes
+          <span class="dashboard-nav-badge">2</span>
+        </a>
+
+        <span class="dashboard-nav-label">Account</span>
+        <a href="profile.html" class="dashboard-nav-link">
+          <span class="nav-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.5 20.25a7.5 7.5 0 0115 0"/></svg>
+          </span>
+          Profile
+        </a>
+        <a href="settings.html" class="dashboard-nav-link">
+          <span class="nav-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="2.25"/><path stroke-linecap="round" stroke-linejoin="round" d="M10.5 3.75h3l.4 2.1a6.7 6.7 0 011.8.95l2-.85 1.5 2.6-1.65 1.42a6.7 6.7 0 010 2.16l1.65 1.42-1.5 2.6-2-.85a6.7 6.7 0 01-1.8.95l-.4 2.1h-3l-.4-2.1a6.7 6.7 0 01-1.8-.95l-2 .85-1.5-2.6 1.65-1.42a6.7 6.7 0 010-2.16L4.4 8.55l1.5-2.6 2 .85a6.7 6.7 0 011.8-.95z"/></svg>
+          </span>
+          Settings
+        </a>
+      </nav>
+
+      <div class="dashboard-sidebar-footer">
+        <div class="dashboard-user-card">
+          <div class="avatar avatar-md" style="background:#E0E7FF;color:#3730A3;">JS</div>
+          <div class="dashboard-user-info">
+            <div class="dashboard-user-name">Jane Smith</div>
+            <div class="dashboard-user-role">Intern — Engineering</div>
+          </div>
+        </div>
+        <button class="btn btn-ghost btn-sm dashboard-logout-btn">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 9V5.25A2.25 2.25 0 0013.5 3h-6a2.25 2.25 0 00-2.25 2.25v13.5A2.25 2.25 0 007.5 21h6a2.25 2.25 0 002.25-2.25V15M18 12H9m9 0l-3-3m3 3l-3 3"/></svg>
+          Log out
+        </button>
+      </div>
+    </aside>
+
+    <!-- MAIN -->
+    <div class="dashboard-main">
+
+      <header class="dashboard-topbar">
+        <button class="dashboard-sidebar-toggle" aria-label="Toggle sidebar">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5M3.75 17.25h16.5"/></svg>
+        </button>
+        <span class="dashboard-topbar-title">Course</span>
+        <div class="dashboard-topbar-actions">
+          <div class="avatar avatar-sm" style="background:#E0E7FF;color:#3730A3;">JS</div>
+        </div>
+      </header>
+
+      <main class="dashboard-content">
+
+        <p style="font-size:var(--text-sm);">
+          <a href="courses.html" style="color:var(--color-gray-500);">&larr; Back to My Courses</a>
+        </p>
+
+        <!-- COURSE HEADER -->
+        <section class="course-detail-header" aria-label="Course overview">
+          <div class="course-detail-top">
+            <div>
+              <div class="course-card-category">Tech &amp; Tools</div>
+              <h1 class="course-detail-title">Developer Environment Setup &amp; Workflow</h1>
+              <p class="course-detail-desc">
+                Get your local environment, tools, and version control workflow
+                ready so you can start shipping code from week one.
+              </p>
+            </div>
+            <div class="course-detail-progress-box">
+              <div class="course-detail-progress-pct">70%</div>
+              <div class="course-detail-progress-label">7 / 10 items complete</div>
+            </div>
+          </div>
+          <div class="progress">
+            <div class="progress-bar" style="width:70%"></div>
+          </div>
+        </section>
+
+        <!-- MODULE ACCORDION -->
+        <section aria-label="Modules" style="margin-top:var(--space-6);">
+          <div class="module-accordion">
+
+            <!-- MODULE 1 — DONE -->
+            <div class="module-accordion-item open">
+              <button type="button" class="module-accordion-head" aria-expanded="true">
+                <span class="module-accordion-number done">1</span>
+                <span class="module-accordion-info">
+                  <span class="module-accordion-title">IDE &amp; Editor Setup</span>
+                  <span class="module-accordion-meta">3 / 3 items · 100%</span>
+                </span>
+                <svg class="module-accordion-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M6 9l6 6 6-6"/></svg>
+              </button>
+              <div class="module-accordion-body">
+                <div class="module-item-row">
+                  <span class="module-item-status done">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+                  </span>
+                  <span class="module-item-info">
+                    <span class="module-item-title">Installing your code editor</span>
+                    <span class="module-item-type">Material</span>
+                  </span>
+                  <a href="#" class="module-item-action btn btn-ghost btn-sm">Review</a>
+                </div>
+                <div class="module-item-row">
+                  <span class="module-item-status done">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+                  </span>
+                  <span class="module-item-info">
+                    <span class="module-item-title">Essential extensions &amp; shortcuts</span>
+                    <span class="module-item-type">Material</span>
+                  </span>
+                  <a href="#" class="module-item-action btn btn-ghost btn-sm">Review</a>
+                </div>
+                <div class="module-item-row">
+                  <span class="module-item-status done">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+                  </span>
+                  <span class="module-item-info">
+                    <span class="module-item-title">Mini Quiz: Editor Setup</span>
+                    <span class="module-item-type">Quiz · Passed</span>
+                  </span>
+                  <a href="#" class="module-item-action btn btn-ghost btn-sm">View Result</a>
+                </div>
+              </div>
+            </div>
+
+            <!-- MODULE 2 — DONE -->
+            <div class="module-accordion-item">
+              <button type="button" class="module-accordion-head" aria-expanded="false">
+                <span class="module-accordion-number done">2</span>
+                <span class="module-accordion-info">
+                  <span class="module-accordion-title">Version Control Basics</span>
+                  <span class="module-accordion-meta">3 / 3 items · 100%</span>
+                </span>
+                <svg class="module-accordion-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M6 9l6 6 6-6"/></svg>
+              </button>
+              <div class="module-accordion-body">
+                <div class="module-item-row">
+                  <span class="module-item-status done">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+                  </span>
+                  <span class="module-item-info">
+                    <span class="module-item-title">Git fundamentals</span>
+                    <span class="module-item-type">Material</span>
+                  </span>
+                  <a href="#" class="module-item-action btn btn-ghost btn-sm">Review</a>
+                </div>
+                <div class="module-item-row">
+                  <span class="module-item-status done">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+                  </span>
+                  <span class="module-item-info">
+                    <span class="module-item-title">Branching &amp; pull requests</span>
+                    <span class="module-item-type">Material</span>
+                  </span>
+                  <a href="#" class="module-item-action btn btn-ghost btn-sm">Review</a>
+                </div>
+                <div class="module-item-row">
+                  <span class="module-item-status done">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+                  </span>
+                  <span class="module-item-info">
+                    <span class="module-item-title">Mini Quiz: Git &amp; Version Control</span>
+                    <span class="module-item-type">Quiz · Passed</span>
+                  </span>
+                  <a href="#" class="module-item-action btn btn-ghost btn-sm">View Result</a>
+                </div>
+              </div>
+            </div>
+
+            <!-- MODULE 3 — ACTIVE -->
+            <div class="module-accordion-item open">
+              <button type="button" class="module-accordion-head" aria-expanded="true">
+                <span class="module-accordion-number active">3</span>
+                <span class="module-accordion-info">
+                  <span class="module-accordion-title">Local Dev Server Setup</span>
+                  <span class="module-accordion-meta">1 / 2 items · 50%</span>
+                </span>
+                <svg class="module-accordion-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M6 9l6 6 6-6"/></svg>
+              </button>
+              <div class="module-accordion-body">
+                <div class="module-item-row">
+                  <span class="module-item-status done">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+                  </span>
+                  <span class="module-item-info">
+                    <span class="module-item-title">Running the project locally</span>
+                    <span class="module-item-type">Material</span>
+                  </span>
+                  <a href="#" class="module-item-action btn btn-ghost btn-sm">Review</a>
+                </div>
+                <div class="module-item-row">
+                  <span class="module-item-status active">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75l2 2 4-4M8.25 4.5h7.5a1.5 1.5 0 011.5 1.5v13.5a1.5 1.5 0 01-1.5 1.5h-7.5a1.5 1.5 0 01-1.5-1.5V6a1.5 1.5 0 011.5-1.5z"/></svg>
+                  </span>
+                  <span class="module-item-info">
+                    <span class="module-item-title">Mini Quiz: Local Dev Server</span>
+                    <span class="module-item-type">Quiz</span>
+                  </span>
+                  <a href="quiz-take.html" class="module-item-action btn btn-primary btn-sm">Start Quiz</a>
+                </div>
+              </div>
+            </div>
+
+            <!-- MODULE 4 — LOCKED -->
+            <div class="module-accordion-item">
+              <button type="button" class="module-accordion-head" aria-expanded="false">
+                <span class="module-accordion-number locked">4</span>
+                <span class="module-accordion-info">
+                  <span class="module-accordion-title">Debugging Tools</span>
+                  <span class="module-accordion-meta">0 / 2 items · Locked</span>
+                </span>
+                <svg class="module-accordion-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M6 9l6 6 6-6"/></svg>
+              </button>
+              <div class="module-accordion-body">
+                <div class="module-item-row is-locked">
+                  <span class="module-item-status locked">
+                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><path stroke-linecap="round" stroke-linejoin="round" d="M7.5 10.5V7.5a4.5 4.5 0 119 0v3M6 10.5h12A1.5 1.5 0 0119.5 12v7.5A1.5 1.5 0 0118 21H6a1.5 1.5 0 01-1.5-1.5V12A1.5 1.5 0 016 10.5z"/></svg>
+                  </span>
+                  <span class="module-item-info">
+                    <span class="module-item-title">Browser &amp; editor debugging tools</span>
+                    <span class="module-item-type">Material</span>
+                  </span>
+                  <span class="module-item-action" style="font-size:var(--text-xs);color:var(--color-gray-400);">Locked</span>
+                </div>
+                <div class="module-item-row is-locked">
+                  <span class="module-item-status locked">
+                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><path stroke-linecap="round" stroke-linejoin="round" d="M7.5 10.5V7.5a4.5 4.5 0 119 0v3M6 10.5h12A1.5 1.5 0 0119.5 12v7.5A1.5 1.5 0 0118 21H6a1.5 1.5 0 01-1.5-1.5V12A1.5 1.5 0 016 10.5z"/></svg>
+                  </span>
+                  <span class="module-item-info">
+                    <span class="module-item-title">Mini Quiz: Debugging Tools</span>
+                    <span class="module-item-type">Quiz</span>
+                  </span>
+                  <span class="module-item-action" style="font-size:var(--text-xs);color:var(--color-gray-400);">Locked</span>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </section>
+
+      </main>
+    </div>
+  </div>
+
+  <script src="js/utils.js"></script>
+  <script src="js/dashboard.js"></script>
+  <script src="js/courses.js"></script>
+</body>
+</html>

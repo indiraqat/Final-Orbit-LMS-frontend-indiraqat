@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Log In — Orbit LMS</title>
+  <link rel="stylesheet" href="css/globals.css" />
+  <link rel="stylesheet" href="css/components.css" />
+  <link rel="stylesheet" href="css/auth.css" />
+</head>
+<body>
+
+  <div class="auth-page">
+
+    <!-- LEFT PANEL -->
+    <div class="auth-panel" aria-hidden="true">
+
+      <div class="auth-panel-brand">
+        <div class="auth-panel-logo">O</div>
+        <span class="auth-panel-brand-name">Orbit LMS</span>
+      </div>
+
+      <div class="auth-panel-content">
+        <h1 class="auth-panel-title">
+          Welcome back to<br/>your learning hub.
+        </h1>
+        <p class="auth-panel-desc">
+          Pick up right where you left off. Your modules,
+          assignments, and mentor feedback are waiting.
+        </p>
+
+        <div class="auth-panel-features">
+          <div class="auth-panel-feature">
+            <div class="auth-panel-feature-icon">✅</div>
+            Track your onboarding progress
+          </div>
+          <div class="auth-panel-feature">
+            <div class="auth-panel-feature-icon">📝</div>
+            Submit and re-submit assignments
+          </div>
+          <div class="auth-panel-feature">
+            <div class="auth-panel-feature-icon">💬</div>
+            Read mentor feedback instantly
+          </div>
+        </div>
+      </div>
+
+      <div class="auth-panel-footer">
+        © 2026 Orbit LMS. All rights reserved.
+      </div>
+
+    </div>
+
+
+    <!-- FORM PANEL -->
+    <div class="auth-form-panel">
+      <div class="auth-form-wrap">
+
+        <h2 class="auth-form-title">Log in</h2>
+        <p class="auth-form-subtitle">
+          Don't have an account?
+          <a href="register.html">Create one here</a>
+        </p>
+
+        <!-- Error Banner -->
+        <div class="auth-error-banner" id="login-error" role="alert"></div>
+
+        <form class="auth-form" id="login-form" novalidate>
+
+          <!-- Email -->
+          <div class="form-group">
+            <label class="form-label" for="login-email">
+              Email address <span class="required" aria-label="required">*</span>
+            </label>
+            <div class="input-wrapper">
+              <svg class="input-icon" xmlns="http://www.w3.org/2000/svg" fill="none"
+                viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+                <path stroke-linecap="round" stroke-linejoin="round"
+                  d="M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25H4.5A2.25 2.25 0 012.25 17.25V6.75M21.75 6.75L12 13.5 2.25 6.75M21.75 6.75A2.25 2.25 0 0019.5 4.5H4.5A2.25 2.25 0 002.25 6.75"/>
+              </svg>
+              <input
+                type="email"
+                id="login-email"
+                class="form-input"
+                placeholder="you@company.com"
+                autocomplete="email"
+                required
+              />
+            </div>
+          </div>
+
+          <!-- Password -->
+          <div class="form-group">
+            <label class="form-label" for="login-password">
+              Password <span class="required" aria-label="required">*</span>
+            </label>
+            <div class="input-wrapper">
+              <svg class="input-icon" xmlns="http://www.w3.org/2000/svg" fill="none"
+                viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+                <path stroke-linecap="round" stroke-linejoin="round"
+                  d="M16.5 10.5V6.75a4.5 4.5 0 10-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 002.25-2.25v-6.75a2.25 2.25 0 00-2.25-2.25H6.75a2.25 2.25 0 00-2.25 2.25v6.75a2.25 2.25 0 002.25 2.25z"/>
+              </svg>
+              <input
+                type="password"
+                id="login-password"
+                class="form-input"
+                placeholder="Enter your password"
+                autocomplete="current-password"
+                required
+              />
+              <span
+                class="input-icon-right toggle-password"
+                data-target="login-password"
+                role="button"
+                aria-label="Toggle password visibility"
+                tabindex="0"
+              >👁</span>
+            </div>
+          </div>
+
+          <!-- Remember / Forgot -->
+          <div class="auth-row">
+            <label class="form-check">
+              <input type="checkbox" class="form-check-input" id="remember-me" />
+              <span class="form-check-label">Remember me</span>
+            </label>
+            <a href="#" class="auth-forgot">Forgot password?</a>
+          </div>
+
+          <!-- Submit -->
+          <button
+            type="submit"
+            id="login-submit"
+            class="btn btn-primary btn-block"
+          >
+            Log In
+          </button>
+
+        </form>
+
+        <!-- Back to home -->
+        <p style="margin-top:2rem;text-align:center;font-size:0.875rem;color:var(--color-gray-500);">
+          <a href="index.html" style="color:var(--color-gray-500);">← Back to homepage</a>
+        </p>
+
+      </div>
+    </div>
+
+  </div>
+
+  <script src="js/utils.js"></script>
+  <script src="js/auth.js"></script>
+</body>
+</html>

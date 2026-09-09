@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mini Quiz: Local Dev Server — Orbit LMS</title>
+  <link rel="stylesheet" href="css/globals.css" />
+  <link rel="stylesheet" href="css/components.css" />
+  <link rel="stylesheet" href="css/dashboard.css" />
+  <link rel="stylesheet" href="css/quiz.css" />
+</head>
+<body>
+
+  <div class="dashboard-sidebar-backdrop"></div>
+
+  <div class="dashboard-shell">
+
+    <!-- SIDEBAR -->
+    <aside class="dashboard-sidebar" aria-label="Dashboard navigation">
+      <div class="dashboard-sidebar-brand">
+        <div class="navbar-logo">O</div>
+        <span class="dashboard-sidebar-brand-name">Orbit <span>LMS</span></span>
+      </div>
+
+      <nav class="dashboard-nav" role="list">
+        <span class="dashboard-nav-label">Menu</span>
+
+        <a href="user-dashboard.html" class="dashboard-nav-link">
+          <span class="nav-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M3 10.5L12 3l9 7.5M5.25 9.75V19.5a.75.75 0 00.75.75h3.75v-6h4.5v6H18a.75.75 0 00.75-.75V9.75"/></svg>
+          </span>
+          Dashboard
+        </a>
+        <a href="courses.html" class="dashboard-nav-link active">
+          <span class="nav-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6.75C10.5 5.25 8 4.5 5.25 4.5v13.5c2.75 0 5.25.75 6.75 2.25 1.5-1.5 4-2.25 6.75-2.25V4.5c-2.75 0-5.25.75-6.75 2.25z"/></svg>
+          </span>
+          My Courses
+        </a>
+        <a href="quizzes.html" class="dashboard-nav-link">
+          <span class="nav-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75l2 2 4-4M8.25 4.5h7.5a1.5 1.5 0 011.5 1.5v13.5a1.5 1.5 0 01-1.5 1.5h-7.5a1.5 1.5 0 01-1.5-1.5V6a1.5 1.5 0 011.5-1.5z"/></svg>
+          </span>
+          Quizzes
+        </a>
+
+        <span class="dashboard-nav-label">Account</span>
+        <a href="profile.html" class="dashboard-nav-link">
+          <span class="nav-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.5 20.25a7.5 7.5 0 0115 0"/></svg>
+          </span>
+          Profile
+        </a>
+        <a href="settings.html" class="dashboard-nav-link">
+          <span class="nav-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="2.25"/><path stroke-linecap="round" stroke-linejoin="round" d="M10.5 3.75h3l.4 2.1a6.7 6.7 0 011.8.95l2-.85 1.5 2.6-1.65 1.42a6.7 6.7 0 010 2.16l1.65 1.42-1.5 2.6-2-.85a6.7 6.7 0 01-1.8.95l-.4 2.1h-3l-.4-2.1a6.7 6.7 0 01-1.8-.95l-2 .85-1.5-2.6 1.65-1.42a6.7 6.7 0 010-2.16L4.4 8.55l1.5-2.6 2 .85a6.7 6.7 0 011.8-.95z"/></svg>
+          </span>
+          Settings
+        </a>
+      </nav>
+
+      <div class="dashboard-sidebar-footer">
+        <div class="dashboard-user-card">
+          <div class="avatar avatar-md" style="background:#E0E7FF;color:#3730A3;">JS</div>
+          <div class="dashboard-user-info">
+            <div class="dashboard-user-name">Jane Smith</div>
+            <div class="dashboard-user-role">Intern — Engineering</div>
+          </div>
+        </div>
+        <button class="btn btn-ghost btn-sm dashboard-logout-btn">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 9V5.25A2.25 2.25 0 0013.5 3h-6a2.25 2.25 0 00-2.25 2.25v13.5A2.25 2.25 0 007.5 21h6a2.25 2.25 0 002.25-2.25V15M18 12H9m9 0l-3-3m3 3l-3 3"/></svg>
+          Log out
+        </button>
+      </div>
+    </aside>
+
+    <!-- MAIN -->
+    <div class="dashboard-main">
+
+      <header class="dashboard-topbar">
+        <button class="dashboard-sidebar-toggle" aria-label="Toggle sidebar">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5M3.75 17.25h16.5"/></svg>
+        </button>
+        <span class="dashboard-topbar-title">Quiz</span>
+      </header>
+
+      <main class="dashboard-content">
+
+        <p class="no-print" style="font-size:var(--text-sm);">
+          <a href="course-detail.html" style="color:var(--color-gray-500);">&larr; Back to course</a>
+        </p>
+
+        <!-- QUIZ VIEW -->
+        <div id="quiz-view" class="quiz-view">
+
+          <div class="quiz-meta-bar">
+            <div class="quiz-meta-trail">Developer Environment Setup &amp; Workflow &nbsp;/&nbsp; Local Dev Server Setup</div>
+            <h1 class="quiz-meta-title">Mini Quiz: Local Dev Server</h1>
+            <div class="quiz-answered-count" id="quiz-answered-count"><strong>0</strong> / 5 answered</div>
+          </div>
+
+          <div class="quiz-questions">
+
+            <div class="quiz-question">
+              <span class="quiz-question-number">Question 1</span>
+              <p class="quiz-question-text">What command is commonly used to start a local development server for a Node.js project?</p>
+              <div class="quiz-options">
+                <label class="quiz-option">
+                  <input type="radio" name="q1" data-correct="true">
+                  <span class="quiz-option-text">npm start</span>
+                </label>
+                <label class="quiz-option">
+                  <input type="radio" name="q1">
+                  <span class="quiz-option-text">npm deploy</span>
+                </label>
+                <label class="quiz-option">
+                  <input type="radio" name="q1">
+                  <span class="quiz-option-text">npm publish</span>
+                </label>
+                <label class="quiz-option">
+                  <input type="radio" name="q1">
+                  <span class="quiz-option-text">npm archive</span>
+                </label>
+              </div>
+            </div>
+
+            <div class="quiz-question">
+              <span class="quiz-question-number">Question 2</span>
+              <p class="quiz-question-text">Which address does a local dev server most commonly run on by default?</p>
+              <div class="quiz-options">
+                <label class="quiz-option">
+                  <input type="radio" name="q2" data-correct="true">
+                  <span class="quiz-option-text">http://localhost:3000</span>
+                </label>
+                <label class="quiz-option">
+                  <input type="radio" name="q2">
+                  <span class="quiz-option-text">http://localhost:21</span>
+                </label>
+                <label class="quiz-option">
+                  <input type="radio" name="q2">
+                  <span class="quiz-option-text">http://localhost:443</span>
+                </label>
+                <label class="quiz-option">
+                  <input type="radio" name="q2">
+                  <span class="quiz-option-text">http://localhost:25</span>
+                </label>
+              </div>
+            </div>
+
+            <div class="quiz-question">
+              <span class="quiz-question-number">Question 3</span>
+              <p class="quiz-question-text">Which file usually lists a Node.js project's dependencies?</p>
+              <div class="quiz-options">
+                <label class="quiz-option">
+                  <input type="radio" name="q3">
+                  <span class="quiz-option-text">requirements.txt</span>
+                </label>
+                <label class="quiz-option">
+                  <input type="radio" name="q3" data-correct="true">
+                  <span class="quiz-option-text">package.json</span>
+                </label>
+                <label class="quiz-option">
+                  <input type="radio" name="q3">
+                  <span class="quiz-option-text">Gemfile</span>
+                </label>
+                <label class="quiz-option">
+                  <input type="radio" name="q3">
+                  <span class="quiz-option-text">composer.json</span>
+                </label>
+              </div>
+            </div>
+
+            <div class="quiz-question">
+              <span class="quiz-question-number">Question 4</span>
+              <p class="quiz-question-text">What does "hot reloading" do during local development?</p>
+              <div class="quiz-options">
+                <label class="quiz-option">
+                  <input type="radio" name="q4" data-correct="true">
+                  <span class="quiz-option-text">Automatically refreshes the app when your code changes</span>
+                </label>
+                <label class="quiz-option">
+                  <input type="radio" name="q4">
+                  <span class="quiz-option-text">Deletes unused files from your project</span>
+                </label>
+                <label class="quiz-option">
+                  <input type="radio" name="q4">
+                  <span class="quiz-option-text">Compresses images on save</span>
+                </label>
+                <label class="quiz-option">
+                  <input type="radio" name="q4">
+                  <span class="quiz-option-text">Backs up your local database</span>
+                </label>
+              </div>
+            </div>
+
+            <div class="quiz-question">
+              <span class="quiz-question-number">Question 5</span>
+              <p class="quiz-question-text">Which of these is NOT a common local dev server tool?</p>
+              <div class="quiz-options">
+                <label class="quiz-option">
+                  <input type="radio" name="q5">
+                  <span class="quiz-option-text">Vite</span>
+                </label>
+                <label class="quiz-option">
+                  <input type="radio" name="q5">
+                  <span class="quiz-option-text">Webpack Dev Server</span>
+                </label>
+                <label class="quiz-option">
+                  <input type="radio" name="q5">
+                  <span class="quiz-option-text">Live Server</span>
+                </label>
+                <label class="quiz-option">
+                  <input type="radio" name="q5" data-correct="true">
+                  <span class="quiz-option-text">Photoshop</span>
+                </label>
+              </div>
+            </div>
+
+          </div>
+
+          <div class="quiz-submit-row">
+            <button type="button" id="submit-quiz-btn" class="btn btn-primary btn-lg">Submit Quiz</button>
+          </div>
+
+        </div>
+
+        <!-- RESULT VIEW -->
+        <div id="result-view" class="quiz-result-wrap is-hidden">
+
+          <div class="quiz-result-card" id="printable-result">
+
+            <div class="quiz-result-letterhead">
+              <div class="quiz-result-brand">
+                <div class="navbar-logo">O</div>
+                <span class="quiz-result-brand-name">Orbit LMS — Quiz Result</span>
+              </div>
+              <div class="quiz-result-date" id="quiz-result-date"></div>
+            </div>
+
+            <div class="quiz-result-summary">
+              <div>
+                <div class="quiz-result-field"><strong>Employee:</strong> Jane Smith</div>
+                <div class="quiz-result-field"><strong>Course:</strong> Developer Environment Setup &amp; Workflow</div>
+                <div class="quiz-result-field"><strong>Module:</strong> Local Dev Server Setup</div>
+                <div class="quiz-result-field"><strong>Quiz:</strong> Mini Quiz: Local Dev Server</div>
+              </div>
+              <div class="quiz-score-box">
+                <div class="quiz-score-value" id="quiz-score-value">0%</div>
+                <div class="quiz-score-fraction" id="quiz-score-fraction">0 / 5 correct</div>
+                <span class="badge" id="quiz-score-badge">—</span>
+              </div>
+            </div>
+
+            <div class="quiz-result-answers" id="quiz-result-answers"></div>
+
+            <p class="quiz-result-footnote">
+              This result is generated on-device and is not automatically submitted to your mentor.
+              Please print or save this as a PDF and share it with your mentor yourself.
+            </p>
+
+          </div>
+
+          <div class="quiz-result-actions no-print" style="margin-top:var(--space-6);">
+            <button type="button" id="print-result-btn" class="btn btn-primary">Print / Save as PDF</button>
+            <a href="course-detail.html" class="btn btn-secondary">Back to course</a>
+          </div>
+
+        </div>
+
+      </main>
+    </div>
+  </div>
+
+  <script src="js/utils.js"></script>
+  <script src="js/dashboard.js"></script>
+  <script src="js/quiz.js"></script>
+</body>
+</html>
