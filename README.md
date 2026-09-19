@@ -33,6 +33,49 @@ After logging in, mentors land on `admin-dashboard.html` and everyone else on
 decorative — every new account is created as an intern (only an existing admin
 can promote someone).
 
+## Screenshots
+
+Captured from the live deployment.
+
+### Public pages
+
+| Landing page | Login |
+|---|---|
+| ![Landing page](docs/screenshots/01-landing.png) | ![Login page](docs/screenshots/02-login.png) |
+
+| Register | |
+|---|---|
+| ![Register page](docs/screenshots/03-register.png) | |
+
+### Intern
+
+| Dashboard | My courses |
+|---|---|
+| ![Intern dashboard](docs/screenshots/04-intern-dashboard.png) | ![My courses](docs/screenshots/05-my-courses.png) |
+
+| Course detail | Quizzes |
+|---|---|
+| ![Course detail](docs/screenshots/06-course-detail.png) | ![Quizzes list](docs/screenshots/07-quizzes.png) |
+
+| Taking a quiz | Quiz result |
+|---|---|
+| ![Taking a quiz](docs/screenshots/08-quiz-taking.png) | ![Quiz result](docs/screenshots/09-quiz-result.png) |
+
+| Profile | |
+|---|---|
+| ![Profile page](docs/screenshots/10-profile.png) | |
+
+### Mentor (admin)
+
+| Admin dashboard | Manage courses |
+|---|---|
+| ![Admin dashboard](docs/screenshots/11-admin-dashboard.png) | ![Manage courses](docs/screenshots/12-manage-courses.png) |
+
+| Manage modules | Module editor |
+|---|---|
+| ![Manage modules](docs/screenshots/13-manage-modules.png) | ![Module editor](docs/screenshots/14-module-editor.png) |
+
+
 ## Project structure
 
 ```
@@ -110,6 +153,123 @@ error in the browser console.
 - `js/auth-guard.js` (included on every logged-in page) sends visitors without
   a session to `login.html` and exposes the user as `window.currentUser`.
 - Logging out clears both keys.
+
+## Database design (ERD)
+
+The frontend reads and writes everything through the backend API, which stores
+data in PostgreSQL. The schema is defined in the backend repo
+(`prisma/schema.prisma`) and looks like this. The diagram renders automatically
+on GitHub.
+
+```mermaid
+erDiagram
+    users ||--o{ enrollments : "enrolls in"
+    courses ||--o{ enrollments : "has"
+    courses ||--o{ modules : "contains"
+    modules ||--o{ materials : "contains"
+    modules ||--o| quizzes : "has at most one"
+    quizzes ||--o{ quiz_questions : "contains"
+    quiz_questions ||--o{ quiz_options : "has"
+    users ||--o{ material_completions : "completes"
+    materials ||--o{ material_completions : "completed by"
+    users ||--o{ quiz_attempts : "makes"
+    quizzes ||--o{ quiz_attempts : "attempted in"
+
+    users {
+        uuid id PK
+        string firstName
+        string lastName
+        string email UK
+        string passwordHash "bcrypt hash"
+        Role role "ADMIN or INTERN (default INTERN)"
+        string department "nullable"
+        datetime createdAt
+        datetime updatedAt
+    }
+
+    courses {
+        uuid id PK
+        string title
+        string category
+        string description "nullable"
+        datetime createdAt
+        datetime updatedAt
+    }
+
+    enrollments {
+        uuid id PK
+        uuid userId FK
+        uuid courseId FK
+        datetime enrolledAt
+    }
+
+    modules {
+        uuid id PK
+        uuid courseId FK
+        string title
+        int order
+        boolean published
+        datetime createdAt
+        datetime updatedAt
+    }
+
+    materials {
+        uuid id PK
+        uuid moduleId FK
+        string title
+        MaterialType type "DOCUMENT, VIDEO_UPLOAD or VIDEO_LINK"
+        string url "nullable"
+        int order
+        datetime createdAt
+        datetime updatedAt
+    }
+
+    material_completions {
+        uuid id PK
+        uuid userId FK
+        uuid materialId FK
+        datetime completedAt
+    }
+
+    quizzes {
+        uuid id PK
+        uuid moduleId FK, UK
+        string title
+    }
+
+    quiz_questions {
+        uuid id PK
+        uuid quizId FK
+        string text
+        int order
+    }
+
+    quiz_options {
+        uuid id PK
+        uuid questionId FK
+        string text
+        boolean isCorrect
+        int order
+    }
+
+    quiz_attempts {
+        uuid id PK
+        uuid userId FK
+        uuid quizId FK
+        int score "number correct"
+        int totalQuestions
+        boolean passed
+        datetime completedAt
+    }
+```
+
+**Relationships**
+- **Users ↔ courses (many-to-many)** through `enrollments`.
+- **Course → modules → materials** — one-to-many at each step.
+- **Module → quiz** — at most one quiz per module; a quiz has many questions,
+  and each question has many options (one marked correct).
+- **Users ↔ materials** through `material_completions`, and **users ↔ quizzes**
+  through `quiz_attempts` (every attempt is stored, so retakes are allowed).
 
 ## Deploy to Vercel
 
