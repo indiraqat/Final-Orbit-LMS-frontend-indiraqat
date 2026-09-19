@@ -87,7 +87,7 @@
       <main class="dashboard-content">
 
         <p class="no-print" style="font-size:var(--text-sm);">
-          <a href="course-detail.html" style="color:var(--color-gray-500);">&larr; Back to course</a>
+          <a href="course-detail.html" id="back-link-top" style="color:var(--color-gray-500);">&larr; Back to course</a>
         </p>
 
         <!-- QUIZ VIEW -->
@@ -262,7 +262,7 @@
 
           <div class="quiz-result-actions no-print" style="margin-top:var(--space-6);">
             <button type="button" id="print-result-btn" class="btn btn-primary">Print / Save as PDF</button>
-            <a href="course-detail.html" class="btn btn-secondary">Back to course</a>
+            <a href="course-detail.html" id="back-link-result" class="btn btn-secondary">Back to course</a>
           </div>
 
         </div>
@@ -271,8 +271,11 @@
     </div>
   </div>
 
-  <script src="js/utils.js"></script>
-  <script src="js/dashboard.js"></script>
-  <script src="js/quiz.js"></script>
+<script src="js/utils.js"></script>
+<script src="js/api.js"></script>
+<script src="js/auth-guard.js"></script>
+<script src="js/dashboard.js"></script>
+<script src="js/quiz.js"></script>
+
 </body>
 </html>

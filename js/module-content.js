@@ -1,163 +1,318 @@
-// MODULE CONTENT EDITOR — materials
+// MODULE EDITOR — reads ?moduleId= from the URL, loads the real module
+// (materials + quiz + questions), and wires up real create/edit/delete.
 
-function initMaterialCrud() {
+document.addEventListener('DOMContentLoaded', loadModuleEditor);
+
+function getModuleIdFromUrl() {
+  return new URLSearchParams(window.location.search).get('moduleId');
+}
+
+function escapeHtml(str) {
+  const div = document.createElement('div');
+  div.textContent = str;
+  return div.innerHTML;
+}
+
+let currentModule = null;
+
+async function loadModuleEditor() {
+  const moduleId = getModuleIdFromUrl();
+  const main = document.querySelector('.dashboard-content');
+
+  if (!moduleId) {
+    if (main) main.innerHTML = `<p style="color:var(--color-danger);">No module was specified. <a href="manage-courses.html">Back to Manage Courses</a></p>`;
+    return;
+  }
+
+  try {
+    const { data: module } = await apiFetch(`/modules/${moduleId}`);
+    currentModule = module;
+
+    const { data: course } = await apiFetch(`/courses/${module.courseId}`);
+
+    fixBackLink(module.courseId);
+    renderModuleDetails(module, course);
+    renderMaterials(module.materials);
+    renderQuestions(module.quiz);
+
+    wireModuleDetailsSave();
+    wireMaterialModal();
+    wireQuestionModal();
+  } catch (err) {
+    if (main) main.innerHTML = `<p style="color:var(--color-danger);">Couldn't load this module: ${escapeHtml(err.message)}</p>`;
+    showToast('Failed to load module.', 'danger');
+  }
+}
+
+function fixBackLink(courseId) {
+  const backLink = document.querySelector('.dashboard-content a[href="manage-course-modules.html"]');
+  if (backLink) backLink.href = `manage-course-modules.html?courseId=${courseId}`;
+}
+
+function renderModuleDetails(module, course) {
+  const titleInput = document.getElementById('module-title-input');
+  const descEl = document.querySelector('.settings-section-desc');
+  const publishedToggle = document.querySelector('.settings-row input[type="checkbox"]');
+
+  if (titleInput) titleInput.value = module.title;
+  if (descEl) descEl.textContent = `${course.title} · Module ${module.order + 1}`;
+  if (publishedToggle) publishedToggle.checked = module.published;
+
+  document.title = `Edit Module — ${module.title} — Orbit LMS`;
+}
+
+function wireModuleDetailsSave() {
+  const saveBtn = document.querySelector('.settings-form-actions .btn-primary');
+  const titleInput = document.getElementById('module-title-input');
+  const publishedToggle = document.querySelector('.settings-row input[type="checkbox"]');
+
+  saveBtn?.addEventListener('click', async () => {
+    try {
+      await apiFetch(`/modules/${currentModule.id}`, {
+        method: 'PUT',
+        body: { title: titleInput.value.trim(), published: publishedToggle.checked },
+      });
+      showToast('Module saved.', 'success');
+      loadModuleEditor();
+    } catch (err) {
+      showToast(err.message || 'Failed to save module.', 'danger');
+    }
+  });
+}
+
+// --- MATERIALS -----------------------------------------------------------
+
+const MATERIAL_ICONS = {
+  DOCUMENT: '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M8.25 3.75h5.19a1.5 1.5 0 011.06.44l3.06 3.06a1.5 1.5 0 01.44 1.06V18.75A2.25 2.25 0 0115.75 21h-7.5a2.25 2.25 0 01-2.25-2.25V6A2.25 2.25 0 018.25 3.75zM9 12h6M9 15.75h6"/></svg>',
+  VIDEO_UPLOAD: '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 10.5l4.72-2.36a.75.75 0 011.03.67v6.38a.75.75 0 01-1.03.67L15.75 13.5M4.5 6.75h9a1.5 1.5 0 011.5 1.5v7.5a1.5 1.5 0 01-1.5 1.5h-9a1.5 1.5 0 01-1.5-1.5v-7.5a1.5 1.5 0 011.5-1.5z"/></svg>',
+  VIDEO_LINK: '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 10.5l4.72-2.36a.75.75 0 011.03.67v6.38a.75.75 0 01-1.03.67L15.75 13.5M4.5 6.75h9a1.5 1.5 0 011.5 1.5v7.5a1.5 1.5 0 01-1.5 1.5h-9a1.5 1.5 0 01-1.5-1.5v-7.5a1.5 1.5 0 011.5-1.5z"/></svg>',
+};
+
+const MATERIAL_TYPE_LABEL = {
+  DOCUMENT: 'Document',
+  VIDEO_UPLOAD: 'Video (uploaded)',
+  VIDEO_LINK: 'Video (link)',
+};
+
+function renderMaterials(materials) {
+  const list = document.getElementById('materials-list');
+  if (!list) return;
+
+  if (!materials.length) {
+    list.innerHTML = `<p style="color:var(--color-gray-500);font-size:var(--text-sm);">No materials yet.</p>`;
+    return;
+  }
+
+  list.innerHTML = materials.map(m => `
+    <div class="material-row" data-material-id="${m.id}" data-type="${m.type}">
+      <span class="material-icon ${m.type === 'DOCUMENT' ? 'document' : 'video'}">${MATERIAL_ICONS[m.type]}</span>
+      <div class="material-info">
+        <div class="material-title">${escapeHtml(m.title)}</div>
+        <div class="material-meta">${MATERIAL_TYPE_LABEL[m.type]} · ${escapeHtml(m.url || 'No file/link set')}</div>
+      </div>
+      <div class="material-actions">
+        <button type="button" class="icon-btn edit-material-btn" data-material-id="${m.id}" aria-label="Edit material">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931z"/></svg>
+        </button>
+        <button type="button" class="icon-btn danger delete-material-btn" data-material-id="${m.id}" aria-label="Delete material">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M6 7.5h12M9.75 7.5V5.25a1.5 1.5 0 011.5-1.5h1.5a1.5 1.5 0 011.5 1.5V7.5m-7.5 0l.6 11.1a1.5 1.5 0 001.5 1.4h5.4a1.5 1.5 0 001.5-1.4l.6-11.1"/></svg>
+        </button>
+      </div>
+    </div>
+  `).join('');
+
+  wireMaterialRowButtons();
+}
+
+function updateMaterialTypeFields() {
+  const typeInput = document.getElementById('material-type-input');
+  document.querySelectorAll('.material-type-field').forEach(el => {
+    el.classList.toggle('active', el.dataset.type === typeInput.value);
+  });
+}
+
+function wireMaterialModal() {
   const modal = document.getElementById('material-modal');
-  if (!modal) return;
-
   const form = document.getElementById('material-form');
   const titleField = document.getElementById('material-modal-title');
   const nameInput = document.getElementById('material-name-input');
   const typeInput = document.getElementById('material-type-input');
-  const fileInput = document.getElementById('material-file-input');
-  const fileNameLabel = document.getElementById('material-file-name');
   const urlInput = document.getElementById('material-url-input');
-  const list = document.getElementById('materials-list');
+  const fileInputDoc = document.getElementById('material-file-input-doc');
+  const fileInputVideo = document.getElementById('material-file-input');
 
-  let editingRow = null;
+  let editingMaterialId = null;
 
-  function updateTypeFields() {
-    document.querySelectorAll('.material-type-field').forEach(el => {
-      el.classList.toggle('active', el.dataset.type === typeInput.value);
-    });
-  }
-
-  typeInput?.addEventListener('change', updateTypeFields);
-
-  fileInput?.addEventListener('change', () => {
-    fileNameLabel.textContent = fileInput.files[0]?.name || 'No file selected';
-  });
+  typeInput?.addEventListener('change', updateMaterialTypeFields);
 
   document.getElementById('add-material-btn')?.addEventListener('click', () => {
-    editingRow = null;
+    editingMaterialId = null;
     titleField.textContent = 'Add Material';
     form.reset();
-    fileNameLabel.textContent = 'No file selected';
     typeInput.value = 'document';
-    updateTypeFields();
+    updateMaterialTypeFields();
     openModal(modal);
   });
 
-  function wireRowButtons() {
+  form.onsubmit = async (e) => {
+    e.preventDefault();
+    const type = typeInput.value;
+    const backendType = type === 'document' ? 'DOCUMENT' : type === 'video-upload' ? 'VIDEO_UPLOAD' : 'VIDEO_LINK';
+
+    let url = null;
+    if (type === 'video-link') {
+      url = urlInput.value.trim() || null;
+    } else {
+      // No real file upload endpoint yet — record the chosen filename as a
+      // placeholder so it's visible in the list, rather than pretending to
+      // upload something that isn't actually stored anywhere.
+      const file = type === 'document' ? fileInputDoc.files[0] : fileInputVideo.files[0];
+      url = file ? `(selected file: ${file.name} — not yet uploaded)` : null;
+    }
+
+    try {
+      if (editingMaterialId) {
+        await apiFetch(`/materials/${editingMaterialId}`, {
+          method: 'PUT',
+          body: { title: nameInput.value.trim(), type: backendType, url },
+        });
+        showToast('Material updated.', 'success');
+      } else {
+        await apiFetch(`/modules/${currentModule.id}/materials`, {
+          method: 'POST',
+          body: { title: nameInput.value.trim(), type: backendType, url, order: currentModule.materials.length },
+        });
+        showToast('Material added.', 'success');
+      }
+      closeModal(modal);
+      loadModuleEditor();
+    } catch (err) {
+      showToast(err.message || 'Failed to save material.', 'danger');
+    }
+  };
+
+  function wireEditButtons() {
     document.querySelectorAll('.edit-material-btn').forEach(btn => {
       btn.onclick = () => {
-        editingRow = btn.closest('.material-row');
+        const material = currentModule.materials.find(m => m.id === btn.dataset.materialId);
+        if (!material) return;
+        editingMaterialId = material.id;
         titleField.textContent = 'Edit Material';
-        nameInput.value = editingRow.querySelector('.material-title')?.textContent.trim() || '';
-        typeInput.value = editingRow.dataset.type || 'document';
-        updateTypeFields();
+        nameInput.value = material.title;
+        typeInput.value = material.type === 'DOCUMENT' ? 'document' : material.type === 'VIDEO_UPLOAD' ? 'video-upload' : 'video-link';
+        updateMaterialTypeFields();
+        if (material.type === 'VIDEO_LINK') urlInput.value = material.url || '';
         openModal(modal);
       };
     });
-
-    document.querySelectorAll('.delete-material-btn').forEach(btn => {
-      btn.onclick = () => {
-        const row = btn.closest('.material-row');
-        const name = row.querySelector('.material-title')?.textContent.trim();
-        if (confirm(`Delete material "${name}"? This cannot be undone.`)) {
-          row.remove();
-          showToast(`Material "${name}" deleted.`, 'danger');
-        }
-      };
-    });
   }
 
-  wireRowButtons();
-  updateTypeFields();
+  window.__wireMaterialEditButtons = wireEditButtons;
+}
 
-  form?.addEventListener('submit', (e) => {
-    e.preventDefault();
+function wireMaterialRowButtons() {
+  window.__wireMaterialEditButtons?.();
 
-    const type = typeInput.value;
-    const isVideo = type === 'video-link';
-    const iconClass = type === 'document' ? 'document' : 'video';
-    const metaText = type === 'document'
-      ? (fileInput.files[0]?.name || 'No file uploaded')
-      : type === 'video-upload'
-        ? (fileInput.files[0]?.name || 'No file uploaded')
-        : (urlInput.value || 'No URL set');
-    const typeLabel = type === 'document' ? 'Document' : type === 'video-upload' ? 'Video (uploaded)' : 'Video (link)';
+  document.querySelectorAll('.delete-material-btn').forEach(btn => {
+    btn.onclick = async () => {
+      const material = currentModule.materials.find(m => m.id === btn.dataset.materialId);
+      if (!material) return;
+      if (!confirm(`Delete material "${material.title}"? This cannot be undone.`)) return;
 
-    if (editingRow) {
-      editingRow.dataset.type = type;
-      editingRow.querySelector('.material-icon').className = `material-icon ${iconClass}`;
-      editingRow.querySelector('.material-title').textContent = nameInput.value;
-      editingRow.querySelector('.material-meta').textContent = `${typeLabel} · ${metaText}`;
-      showToast('Material updated.', 'success');
-    } else if (list) {
-      const row = document.createElement('div');
-      row.className = 'material-row';
-      row.dataset.type = type;
-      row.innerHTML = `
-        <span class="material-icon ${iconClass}">
-          ${iconClass === 'document'
-            ? '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M8.25 3.75h5.19a1.5 1.5 0 011.06.44l3.06 3.06a1.5 1.5 0 01.44 1.06V18.75A2.25 2.25 0 0115.75 21h-7.5a2.25 2.25 0 01-2.25-2.25V6A2.25 2.25 0 018.25 3.75zM9 12h6M9 15.75h6"/></svg>'
-            : '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 10.5l4.72-2.36a.75.75 0 011.03.67v6.38a.75.75 0 01-1.03.67L15.75 13.5M4.5 6.75h9a1.5 1.5 0 011.5 1.5v7.5a1.5 1.5 0 01-1.5 1.5h-9a1.5 1.5 0 01-1.5-1.5v-7.5a1.5 1.5 0 011.5-1.5z"/></svg>'}
-        </span>
-        <div class="material-info">
-          <div class="material-title"></div>
-          <div class="material-meta"></div>
-        </div>
-        <div class="material-actions">
-          <button type="button" class="icon-btn edit-material-btn" aria-label="Edit material">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931z"/></svg>
-          </button>
-          <button type="button" class="icon-btn danger delete-material-btn" aria-label="Delete material">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M6 7.5h12M9.75 7.5V5.25a1.5 1.5 0 011.5-1.5h1.5a1.5 1.5 0 011.5 1.5V7.5m-7.5 0l.6 11.1a1.5 1.5 0 001.5 1.4h5.4a1.5 1.5 0 001.5-1.4l.6-11.1"/></svg>
-          </button>
-        </div>
-      `;
-      row.querySelector('.material-title').textContent = nameInput.value;
-      row.querySelector('.material-meta').textContent = `${typeLabel} · ${metaText}`;
-      list.appendChild(row);
-      wireRowButtons();
-      showToast('Material added. (Demo only — file is not actually uploaded.)', 'success');
-    }
-
-    closeModal(modal);
+      try {
+        await apiFetch(`/materials/${material.id}`, { method: 'DELETE' });
+        showToast('Material deleted.', 'danger');
+        loadModuleEditor();
+      } catch (err) {
+        showToast(err.message || 'Failed to delete material.', 'danger');
+      }
+    };
   });
 }
 
-// MODULE CONTENT EDITOR — quiz questions
+// --- QUIZ QUESTIONS --------------------------------------------------------
 
-function initQuestionCrud() {
-  const modal = document.getElementById('question-modal');
-  if (!modal) return;
-
-  const form = document.getElementById('question-form');
-  const titleField = document.getElementById('question-modal-title');
-  const questionInput = document.getElementById('question-text-input');
-  const optionInputs = [
-    document.getElementById('option-a-input'),
-    document.getElementById('option-b-input'),
-    document.getElementById('option-c-input'),
-    document.getElementById('option-d-input'),
-  ];
+function renderQuestions(quiz) {
   const list = document.getElementById('questions-list');
+  if (!list) return;
 
-  let editingRow = null;
+  if (!quiz) {
+    list.innerHTML = `<p style="color:var(--color-gray-500);font-size:var(--text-sm);">No quiz yet for this module — click "Add Question" to create one and start adding questions.</p>`;
+    return;
+  }
 
-  document.getElementById('add-question-btn')?.addEventListener('click', () => {
-    editingRow = null;
-    titleField.textContent = 'Add Quiz Question';
+  if (!quiz.questions.length) {
+    list.innerHTML = `<p style="color:var(--color-gray-500);font-size:var(--text-sm);">This quiz has no questions yet.</p>`;
+    return;
+  }
+
+  list.innerHTML = quiz.questions.map(q => `
+    <div class="question-manage-row" data-question-id="${q.id}">
+      <div class="question-manage-head">
+        <span class="question-manage-text">${escapeHtml(q.text)}</span>
+        <button type="button" class="icon-btn danger delete-question-btn" data-question-id="${q.id}" aria-label="Delete question">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M6 7.5h12M9.75 7.5V5.25a1.5 1.5 0 011.5-1.5h1.5a1.5 1.5 0 011.5 1.5V7.5m-7.5 0l.6 11.1a1.5 1.5 0 001.5 1.4h5.4a1.5 1.5 0 001.5-1.4l.6-11.1"/></svg>
+        </button>
+      </div>
+      <div class="question-manage-options">
+        ${q.options.map(o => `
+          <div class="question-manage-option ${o.isCorrect ? 'is-correct' : ''}">
+            ${o.isCorrect
+              ? '<svg class="question-manage-option-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>'
+              : '<span class="question-manage-option-icon"></span>'}
+            <span>${escapeHtml(o.text)}</span>
+          </div>
+        `).join('')}
+      </div>
+    </div>
+  `).join('');
+
+  wireQuestionDeleteButtons();
+}
+
+function wireQuestionDeleteButtons() {
+  document.querySelectorAll('.delete-question-btn').forEach(btn => {
+    btn.onclick = async () => {
+      if (!confirm('Delete this question? This cannot be undone.')) return;
+      try {
+        await apiFetch(`/questions/${btn.dataset.questionId}`, { method: 'DELETE' });
+        showToast('Question deleted.', 'danger');
+        loadModuleEditor();
+      } catch (err) {
+        showToast(err.message || 'Failed to delete question.', 'danger');
+      }
+    };
+  });
+}
+
+function wireQuestionModal() {
+  const modal = document.getElementById('question-modal');
+  const form = document.getElementById('question-form');
+  const questionInput = document.getElementById('question-text-input');
+  const optionInputs = ['option-a-input', 'option-b-input', 'option-c-input', 'option-d-input'].map(id => document.getElementById(id));
+
+  document.getElementById('add-question-btn')?.addEventListener('click', async () => {
     form.reset();
+
+    // A module can exist without a quiz yet — create one automatically the
+    // first time someone adds a question, rather than requiring a separate step.
+    if (!currentModule.quiz) {
+      try {
+        const { data: quiz } = await apiFetch(`/modules/${currentModule.id}/quiz`, {
+          method: 'POST',
+          body: { title: `Mini Quiz: ${currentModule.title}` },
+        });
+        currentModule.quiz = { ...quiz, questions: [] };
+      } catch (err) {
+        showToast(err.message || 'Failed to create quiz.', 'danger');
+        return;
+      }
+    }
+
     openModal(modal);
   });
 
-  function wireRowButtons() {
-    document.querySelectorAll('.delete-question-btn').forEach(btn => {
-      btn.onclick = () => {
-        const row = btn.closest('.question-manage-row');
-        if (confirm('Delete this question? This cannot be undone.')) {
-          row.remove();
-          showToast('Question deleted.', 'danger');
-        }
-      };
-    });
-  }
-
-  wireRowButtons();
-
-  form?.addEventListener('submit', (e) => {
+  form.onsubmit = async (e) => {
     e.preventDefault();
 
     const correctRadio = form.querySelector('input[name="correct-option"]:checked');
@@ -167,51 +322,23 @@ function initQuestionCrud() {
     }
 
     const correctIndex = Number(correctRadio.value);
-    const options = optionInputs.map(input => input.value);
+    const options = optionInputs.map((input, i) => ({ text: input.value.trim(), isCorrect: i === correctIndex }));
 
-    if (options.some(v => !v.trim())) {
+    if (options.some(o => !o.text)) {
       showToast('Fill in all four options.', 'danger');
       return;
     }
 
-    if (list) {
-      const row = document.createElement('div');
-      row.className = 'question-manage-row';
-
-      const optionsHtml = options.map((text, i) => `
-        <div class="question-manage-option ${i === correctIndex ? 'is-correct' : ''}">
-          ${i === correctIndex
-            ? '<svg class="question-manage-option-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>'
-            : '<span class="question-manage-option-icon"></span>'}
-          <span></span>
-        </div>
-      `).join('');
-
-      row.innerHTML = `
-        <div class="question-manage-head">
-          <span class="question-manage-text"></span>
-          <button type="button" class="icon-btn danger delete-question-btn" aria-label="Delete question">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M6 7.5h12M9.75 7.5V5.25a1.5 1.5 0 011.5-1.5h1.5a1.5 1.5 0 011.5 1.5V7.5m-7.5 0l.6 11.1a1.5 1.5 0 001.5 1.4h5.4a1.5 1.5 0 001.5-1.4l.6-11.1"/></svg>
-          </button>
-        </div>
-        <div class="question-manage-options">${optionsHtml}</div>
-      `;
-
-      row.querySelector('.question-manage-text').textContent = questionInput.value;
-      row.querySelectorAll('.question-manage-option span:last-child').forEach((span, i) => {
-        span.textContent = options[i];
+    try {
+      await apiFetch(`/quizzes/${currentModule.quiz.id}/questions`, {
+        method: 'POST',
+        body: { text: questionInput.value.trim(), options },
       });
-
-      list.appendChild(row);
-      wireRowButtons();
       showToast('Question added.', 'success');
+      closeModal(modal);
+      loadModuleEditor();
+    } catch (err) {
+      showToast(err.message || 'Failed to save question.', 'danger');
     }
-
-    closeModal(modal);
-  });
+  };
 }
-
-document.addEventListener('DOMContentLoaded', () => {
-  initMaterialCrud();
-  initQuestionCrud();
-});

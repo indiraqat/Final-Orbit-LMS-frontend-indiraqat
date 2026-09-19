@@ -61,7 +61,7 @@
 
       <div class="dashboard-sidebar-footer">
         <div class="dashboard-user-card">
-          <div class="avatar avatar-md" style="background:#E0E7FF;color:#3730A3;">JS</div>
+          <div class="avatar avatar-md" data-user-avatar style="background:#E0E7FF;color:#3730A3;">JS</div>
           <div class="dashboard-user-info">
             <div class="dashboard-user-name">Jane Smith</div>
             <div class="dashboard-user-role">Intern — Engineering</div>
@@ -83,11 +83,7 @@
         </button>
         <span class="dashboard-topbar-title">Dashboard</span>
         <div class="dashboard-topbar-actions">
-          <button class="dashboard-icon-btn" aria-label="Notifications">
-            <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M14.86 17.25a2.5 2.5 0 01-4.72 0M18 8.25c0-3.24-2.5-5.75-6-5.75s-6 2.51-6 5.75c0 4.5-1.5 5.25-1.5 5.25h15s-1.5-.75-1.5-5.25z"/></svg>
-            <span class="ping" aria-hidden="true"></span>
-          </button>
-          <div class="avatar avatar-sm" style="background:#E0E7FF;color:#3730A3;">JS</div>
+          <div class="avatar avatar-sm" data-user-avatar style="background:#E0E7FF;color:#3730A3;">JS</div>
         </div>
       </header>
 
@@ -98,25 +94,19 @@
           <div>
             <h1 class="dashboard-welcome-heading">Welcome back, Jane</h1>
             <p class="dashboard-welcome-text">
-              You're 40% through Company Onboarding. Your next material is in
-              HR Policies &amp; Compliance — pick up where you left off.
+              Pick up where you left off in your courses below.
             </p>
           </div>
 
           <div class="orbit-ring-wrap" aria-hidden="true">
             <svg class="orbit-ring-svg" viewBox="0 0 120 120">
               <circle class="orbit-ring-track" cx="60" cy="60" r="55" />
-              <circle class="orbit-ring-progress" data-percent="40" cx="60" cy="60" r="55" />
+              <circle class="orbit-ring-progress" data-percent="0" cx="60" cy="60" r="55" />
             </svg>
             <div class="orbit-ring-label">
               <span class="orbit-ring-percent">0%</span>
               <span class="orbit-ring-sublabel">Onboarding</span>
             </div>
-            <!-- Orbiting module dots -->
-            <span class="orbit-dot done" style="top:6%;left:50%;"></span>
-            <span class="orbit-dot done" style="top:27%;left:88%;"></span>
-            <span class="orbit-dot active" style="top:73%;left:88%;"></span>
-            <span class="orbit-dot pending" style="top:94%;left:50%;"></span>
           </div>
         </section>
 
@@ -128,7 +118,7 @@
             </div>
             <div class="stat-card-info">
               <span class="stat-card-label">Enrolled Courses</span>
-              <span class="stat-card-value">3</span>
+              <span class="stat-card-value" id="stat-enrolled-courses">—</span>
             </div>
           </div>
           <div class="stat-card">
@@ -137,7 +127,7 @@
             </div>
             <div class="stat-card-info">
               <span class="stat-card-label">Modules Completed</span>
-              <span class="stat-card-value">2 / 5</span>
+              <span class="stat-card-value" id="stat-modules-completed">—</span>
             </div>
           </div>
           <div class="stat-card">
@@ -146,7 +136,7 @@
             </div>
             <div class="stat-card-info">
               <span class="stat-card-label">Quizzes Passed</span>
-              <span class="stat-card-value">6 / 8</span>
+              <span class="stat-card-value" id="stat-quizzes-passed">—</span>
             </div>
           </div>
           <div class="stat-card">
@@ -155,18 +145,17 @@
             </div>
             <div class="stat-card-info">
               <span class="stat-card-label">Materials Completed</span>
-              <span class="stat-card-value">14 / 20</span>
+              <span class="stat-card-value" id="stat-materials-completed">—</span>
             </div>
           </div>
         </section>
 
-        <!-- CURRENT TRACK + NEXT UP -->
-        <section class="dashboard-split" aria-label="Current track and what's next">
+        <!-- CURRENT TRACK -->
+        <section class="dashboard-split" aria-label="Current track" style="grid-template-columns:1fr;">
 
-          <!-- Current Track -->
           <div class="track-card">
             <div class="dashboard-section-head">
-              <span class="dashboard-section-title">Company Onboarding Track</span>
+              <span class="dashboard-section-title">Current Track</span>
               <a href="courses.html" class="dashboard-section-link">View all courses</a>
             </div>
             <p class="form-hint" style="margin-bottom:var(--space-4);">
@@ -174,73 +163,13 @@
               complete once every material and quiz inside it is done.
             </p>
 
-            <a href="#" class="track-module-row">
-              <span class="hero-module-dot done"></span>
-              <span class="track-module-text">Introduction to Company Culture</span>
-              <span class="track-module-meta">4 / 4 items · 100%</span>
-            </a>
-            <a href="#" class="track-module-row">
-              <span class="hero-module-dot done"></span>
-              <span class="track-module-text">Tools &amp; Systems Setup</span>
-              <span class="track-module-meta">6 / 6 items · 100%</span>
-            </a>
-
-            <a href="#" class="track-module-row is-active">
-              <span class="hero-module-dot active"></span>
-              <span class="track-module-text">HR Policies &amp; Compliance</span>
-              <span class="track-module-meta">6 / 10 items · 60%</span>
-            </a>
-            <div class="progress" style="margin:0 0 var(--space-2) 40px;width:calc(100% - 40px);">
-              <div class="progress-bar" style="width:60%"></div>
-            </div>
-
-            <a href="#" class="track-module-row">
-              <span class="hero-module-dot pending"></span>
-              <span class="track-module-text">Final Assessment Quiz</span>
-              <span class="track-module-meta">0 / 2 items · Not started</span>
-            </a>
-
             <div class="hero-progress-section">
               <div class="hero-progress-label">
                 <span>Overall Progress</span>
-                <span style="font-weight:600;color:var(--color-primary);">40%</span>
+                <span style="font-weight:600;color:var(--color-primary);">0%</span>
               </div>
               <div class="progress">
-                <div class="progress-bar" style="width:40%"></div>
-              </div>
-            </div>
-          </div>
-
-          <!-- Next up -->
-          <div class="side-card">
-            <div class="dashboard-section-head">
-              <span class="dashboard-section-title" style="font-size:var(--text-base);">Next Up</span>
-            </div>
-            <div class="side-list-item">
-              <div class="side-list-icon" style="background:var(--color-primary-light);color:var(--color-primary-dark);">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6.75C10.5 5.25 8 4.5 5.25 4.5v13.5c2.75 0 5.25.75 6.75 2.25 1.5-1.5 4-2.25 6.75-2.25V4.5c-2.75 0-5.25.75-6.75 2.25z"/></svg>
-              </div>
-              <div>
-                <div class="side-list-title">Material: Workplace Conduct Guide</div>
-                <div class="side-list-meta">HR Policies &amp; Compliance · item 7 of 10</div>
-              </div>
-            </div>
-            <div class="side-list-item">
-              <div class="side-list-icon" style="background:var(--color-warning-light);color:#92400E;">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75l2 2 4-4M8.25 4.5h7.5a1.5 1.5 0 011.5 1.5v13.5a1.5 1.5 0 01-1.5 1.5h-7.5a1.5 1.5 0 01-1.5-1.5V6a1.5 1.5 0 011.5-1.5z"/></svg>
-              </div>
-              <div>
-                <div class="side-list-title">Mini Quiz: Workplace Conduct</div>
-                <div class="side-list-meta">HR Policies &amp; Compliance · item 8 of 10</div>
-              </div>
-            </div>
-            <div class="side-list-item">
-              <div class="side-list-icon" style="background:var(--color-gray-100);color:var(--color-gray-500);">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M8.25 3.75h5.19a1.5 1.5 0 011.06.44l3.06 3.06a1.5 1.5 0 01.44 1.06V18.75A2.25 2.25 0 0115.75 21h-7.5a2.25 2.25 0 01-2.25-2.25V6A2.25 2.25 0 018.25 3.75zM9 12h6M9 15.75h6"/></svg>
-              </div>
-              <div>
-                <div class="side-list-title">Final Assessment Quiz</div>
-                <div class="side-list-meta">Unlocks after HR Policies is complete</div>
+                <div class="progress-bar" style="width:0%"></div>
               </div>
             </div>
           </div>
@@ -254,61 +183,7 @@
             <a href="courses.html" class="dashboard-section-link">Browse all</a>
           </div>
           <div class="dashboard-courses-grid">
-
-            <article class="course-card">
-              <div class="course-card-thumb indigo">
-                <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M17 20.25v-1.5a3 3 0 00-3-3H8a3 3 0 00-3 3v1.5M12.5 9.75a3 3 0 10-3-3 3 3 0 003 3zM19.5 20.25v-1.5a3 3 0 00-2-2.83M16 5.13a3 3 0 010 5.74"/></svg>
-              </div>
-              <div class="course-card-body">
-                <div class="course-card-category">General Onboarding</div>
-                <h3 class="course-card-title">Company Culture &amp; Core Values</h3>
-                <div class="course-progress-wrap">
-                  <div class="course-progress-label">
-                    <span>4 / 4 modules</span>
-                    <span>100%</span>
-                  </div>
-                  <div class="progress"><div class="progress-bar" style="width:100%"></div></div>
-                </div>
-                <a href="#" class="btn btn-secondary btn-sm btn-block">Review</a>
-              </div>
-            </article>
-
-            <article class="course-card">
-              <div class="course-card-thumb cyan">
-                <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M8.25 9l-3.75 3 3.75 3M15.75 9l3.75 3-3.75 3M13.5 6l-3 12"/></svg>
-              </div>
-              <div class="course-card-body">
-                <div class="course-card-category">Tech &amp; Tools</div>
-                <h3 class="course-card-title">Developer Environment Setup &amp; Workflow</h3>
-                <div class="course-progress-wrap">
-                  <div class="course-progress-label">
-                    <span>6 / 8 modules</span>
-                    <span>75%</span>
-                  </div>
-                  <div class="progress"><div class="progress-bar" style="width:75%"></div></div>
-                </div>
-                <a href="#" class="btn btn-primary btn-sm btn-block">Continue</a>
-              </div>
-            </article>
-
-            <article class="course-card">
-              <div class="course-card-thumb green">
-                <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M8.25 3.75h5.19a1.5 1.5 0 011.06.44l3.06 3.06a1.5 1.5 0 01.44 1.06V18.75A2.25 2.25 0 0115.75 21h-7.5a2.25 2.25 0 01-2.25-2.25V6A2.25 2.25 0 018.25 3.75zM9 12h6M9 15.75h6"/></svg>
-              </div>
-              <div class="course-card-body">
-                <div class="course-card-category">HR &amp; Compliance</div>
-                <h3 class="course-card-title">Workplace Policies &amp; Code of Conduct</h3>
-                <div class="course-progress-wrap">
-                  <div class="course-progress-label">
-                    <span>1 / 4 modules</span>
-                    <span>25%</span>
-                  </div>
-                  <div class="progress"><div class="progress-bar" style="width:25%"></div></div>
-                </div>
-                <a href="#" class="btn btn-primary btn-sm btn-block">Continue</a>
-              </div>
-            </article>
-
+            <p style="color:var(--color-gray-500);">Loading your courses...</p>
           </div>
         </section>
 
@@ -317,6 +192,10 @@
   </div>
 
   <script src="js/utils.js"></script>
+  <script src="js/api.js"></script>
+  <script src="js/auth-guard.js"></script>
   <script src="js/dashboard.js"></script>
+  <script src="js/user-dashboard.js"></script>
+
 </body>
 </html>

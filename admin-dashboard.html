@@ -54,7 +54,7 @@
 
       <div class="dashboard-sidebar-footer">
         <div class="dashboard-user-card">
-          <div class="avatar avatar-md" style="background:#CFFAFE;color:#0E7490;">RA</div>
+          <div class="avatar avatar-md" data-user-avatar style="background:#CFFAFE;color:#0E7490;">RA</div>
           <div class="dashboard-user-info">
             <div class="dashboard-user-name">Reza Ardiansyah</div>
             <div class="dashboard-user-role">Mentor — Engineering</div>
@@ -80,7 +80,7 @@
             <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M14.86 17.25a2.5 2.5 0 01-4.72 0M18 8.25c0-3.24-2.5-5.75-6-5.75s-6 2.51-6 5.75c0 4.5-1.5 5.25-1.5 5.25h15s-1.5-.75-1.5-5.25z"/></svg>
             <span class="ping" aria-hidden="true"></span>
           </button>
-          <div class="avatar avatar-sm" style="background:#CFFAFE;color:#0E7490;">RA</div>
+          <div class="avatar avatar-sm" data-user-avatar style="background:#CFFAFE;color:#0E7490;">RA</div>
         </div>
       </header>
 
@@ -89,13 +89,15 @@
         <!-- WELCOME BANNER -->
         <section class="dashboard-welcome" aria-label="Welcome" style="grid-template-columns:1fr;">
           <div>
-            <h1 class="dashboard-welcome-heading">Welcome back, Reza</h1>
+            <h1 class="dashboard-welcome-heading">Welcome back</h1>
             <p class="dashboard-welcome-text" style="max-width:none;">
-              You're mentoring 8 interns across 3 courses. Manage your course
-              modules or check who's on your team below.
+              Manage your course modules or check who's on your team below.
             </p>
           </div>
         </section>
+
+        <!-- ERROR BANNER (hidden unless a load fails) -->
+        <div id="dashboard-error-banner" class="alert alert-danger" style="display:none;"></div>
 
         <!-- STATS -->
         <section class="dashboard-stats-grid" aria-label="Program stats" style="grid-template-columns:repeat(3, 1fr);">
@@ -105,7 +107,7 @@
             </div>
             <div class="stat-card-info">
               <span class="stat-card-label">Total Interns</span>
-              <span class="stat-card-value">8</span>
+              <span class="stat-card-value" id="stat-total-interns">—</span>
             </div>
           </div>
           <div class="stat-card">
@@ -114,7 +116,7 @@
             </div>
             <div class="stat-card-info">
               <span class="stat-card-label">Active Courses</span>
-              <span class="stat-card-value">3</span>
+              <span class="stat-card-value" id="stat-active-courses">—</span>
             </div>
           </div>
           <div class="stat-card">
@@ -123,7 +125,7 @@
             </div>
             <div class="stat-card-info">
               <span class="stat-card-label">Total Modules</span>
-              <span class="stat-card-value">17</span>
+              <span class="stat-card-value" id="stat-total-modules">—</span>
             </div>
           </div>
         </section>
@@ -133,7 +135,7 @@
           <div class="table-card">
             <div class="table-card-head">
               <span class="dashboard-section-title">Your Team</span>
-              <input type="text" class="search-input-sm" placeholder="Search interns...">
+              <input type="text" class="search-input-sm" id="roster-search" placeholder="Search interns...">
             </div>
             <div class="table-scroll">
               <table class="data-table">
@@ -144,90 +146,10 @@
                     <th>Courses To Take</th>
                   </tr>
                 </thead>
-                <tbody>
+                <tbody id="roster-body">
                   <tr>
-                    <td>
-                      <div class="roster-user">
-                        <div class="avatar avatar-sm" style="background:#E0E7FF;color:#3730A3;">JS</div>
-                        <div>
-                          <div class="roster-user-name">Jane Smith</div>
-                          <div class="roster-user-dept">Engineering</div>
-                        </div>
-                      </div>
-                    </td>
-                    <td>
-                      <div class="roster-badges">
-                        <span class="badge badge-success">Company Culture</span>
-                      </div>
-                    </td>
-                    <td>
-                      <div class="roster-badges">
-                        <span class="badge badge-info">Dev Environment Setup</span>
-                        <span class="badge badge-info">Workplace Policies</span>
-                      </div>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      <div class="roster-user">
-                        <div class="avatar avatar-sm" style="background:#DCFCE7;color:#166534;">BT</div>
-                        <div>
-                          <div class="roster-user-name">Budi Tanuwijaya</div>
-                          <div class="roster-user-dept">Product &amp; Design</div>
-                        </div>
-                      </div>
-                    </td>
-                    <td>
-                      <div class="roster-badges">
-                        <span class="badge badge-success">Company Culture</span>
-                        <span class="badge badge-success">Dev Environment Setup</span>
-                      </div>
-                    </td>
-                    <td>
-                      <div class="roster-badges">
-                        <span class="badge badge-info">Workplace Policies</span>
-                      </div>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      <div class="roster-user">
-                        <div class="avatar avatar-sm" style="background:#FEF3C7;color:#92400E;">NA</div>
-                        <div>
-                          <div class="roster-user-name">Nadia Amelia</div>
-                          <div class="roster-user-dept">Marketing</div>
-                        </div>
-                      </div>
-                    </td>
-                    <td>
-                      <span class="roster-empty">None yet</span>
-                    </td>
-                    <td>
-                      <div class="roster-badges">
-                        <span class="badge badge-info">Company Culture</span>
-                        <span class="badge badge-info">Workplace Policies</span>
-                      </div>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      <div class="roster-user">
-                        <div class="avatar avatar-sm" style="background:#CFFAFE;color:#0E7490;">FH</div>
-                        <div>
-                          <div class="roster-user-name">Farhan Hidayat</div>
-                          <div class="roster-user-dept">Engineering</div>
-                        </div>
-                      </div>
-                    </td>
-                    <td>
-                      <div class="roster-badges">
-                        <span class="badge badge-success">Company Culture</span>
-                        <span class="badge badge-success">Dev Environment Setup</span>
-                        <span class="badge badge-success">Workplace Policies</span>
-                      </div>
-                    </td>
-                    <td>
-                      <span class="roster-empty">None left</span>
+                    <td colspan="3" style="text-align:center;color:var(--color-gray-500);padding:var(--space-6);">
+                      Loading your team...
                     </td>
                   </tr>
                 </tbody>
@@ -255,6 +177,9 @@
   </div>
 
   <script src="js/utils.js"></script>
+  <script src="js/api.js"></script>
+  <script src="js/auth-guard.js"></script>
   <script src="js/dashboard.js"></script>
+  <script src="js/admin-dashboard.js"></script>
 </body>
 </html>
