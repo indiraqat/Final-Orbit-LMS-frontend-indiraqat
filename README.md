@@ -38,27 +38,36 @@ can promote someone).
 ```
 Orbit LMS/
 ├── index.html, about.html, login.html, register.html, ...   # one HTML file per page
+├── .vscode/settings.json
 ├── css/
-│   ├── globals.css        # fonts, design tokens (CSS variables), reset, utilities, grid, badges
-│   ├── components.css     # buttons, form inputs, cards, progress bars, alerts, avatars, toasts
-│   ├── layout.css         # navbar + footer for public pages
-│   ├── home.css           # landing page sections
-│   ├── auth.css           # login + register
-│   ├── dashboard.css      # sidebar/topbar shell used by all logged-in pages
-│   ├── admin.css          # modals + module/material/quiz-question editor lists
-│   ├── profile.css        # profile + settings
-│   └── quiz.css           # quiz-taking view
+│   ├── admin.css          
+│   ├── auth.css           
+│   ├── components.css     
+│   ├── dashboard.css           
+│   ├── global.css          
+│   ├── home.css     
+│   ├── layout.css          
+│   ├── profile.css      
+│   └── quiz.css    
+├── images/      
 ├── js/
-│   ├── api.js             # API_BASE_URL, session helpers, apiFetch()
-│   ├── auth-guard.js      # redirects to login if there's no session
-│   ├── auth.js            # login + register forms
-│   ├── utils.js           # navbar, toasts, form validation helpers
-│   ├── dashboard.js       # shared shell: sidebar, real user info, logout
-│   ├── user-dashboard.js, courses.js, course-detail.js, quizzes.js, quiz.js
+│   ├── admin-course-modules.js             
+│   ├── admin-courses.js      
+│   ├── admin-dashboard.js            
+│   ├── admin.js           
+│   ├── api.js       
+│   ├── auth-guard.js
+│   ├── auth.js
+│   ├── course-details
+│   ├── courses.js
+│   ├── dashboard.js
+│   ├── module-content.js
 │   ├── profile.js
-│   └── admin.js, admin-dashboard.js, admin-courses.js,
-│       admin-course-modules.js, module-content.js
-└── .vscode/settings.json  # Live Server port (5501)
+│   ├── quiz.js
+│   ├── quizzes.js
+│   ├── user-dashboard.js
+│   └── utils.js
+└── README.md
 ```
 
 The backend lives in its own repo (`orbit-lms-backend`). It sits inside this
@@ -80,7 +89,7 @@ You need a running backend (local or deployed) and any static file server.
    project's Live Server is configured for port **5501**
    (`.vscode/settings.json`), so:
 ```
-   CLIENT_ORIGIN="http://127.0.0.1:5501"
+   CLIENT_ORIGIN="https://final-orbit-lms-frontend-indiraqat.vercel.app"
 ```
    Restart the backend after changing it.
 4. **Serve the site.** In VS Code, right-click `index.html` → **Open with Live
@@ -160,23 +169,3 @@ Things to know:
 - **Public sites and seeded accounts.** The backend README documents the
   seeded demo accounts and their shared password. Don't leave those on a
   database that a public site uses — delete them or change their passwords.
-
-## Troubleshooting
-
-- **CORS error in the console** — `CLIENT_ORIGIN` on the backend doesn't
-  exactly match the address in your browser (protocol, host, port, or a
-  trailing slash).
-- **Pages keep sending you to the login screen** — your session is missing or
-  the token has expired; log in again.
-- **"Failed to fetch" or empty pages** — `API_BASE_URL` in `js/api.js` is wrong
-  or the backend isn't running.
-- **Login works but the data is empty** — the database hasn't been seeded (or
-  you have no enrollments yet).
-
-## Known limitations
-
-- The client-side role check only exists on `admin-dashboard.html` (it sends
-  non-admins away). `manage-courses`, `manage-course-modules`, and
-  `module-editor` can be opened by any logged-in user, but every write they
-  make is enforced by the backend, which returns `403` for non-admins.
-- The register page's role selector doesn't do anything (see above).
