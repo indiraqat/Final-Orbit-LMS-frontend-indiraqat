@@ -120,19 +120,11 @@ function renderCurrentTrack(courses) {
     `;
   }).join('');
 
-  const progressSection = trackCard.querySelector('.hero-progress-section');
   trackCard.querySelectorAll('.track-module-row').forEach(el => el.remove());
-
-  if (progressSection) {
-    progressSection.insertAdjacentHTML('beforebegin', rowsHtml);
-    const label = progressSection.querySelector('.hero-progress-label span:last-child');
-    if (label) label.textContent = `${course.percent}%`;
-    const bar = progressSection.querySelector('.progress-bar');
-    if (bar) bar.style.width = `${course.percent}%`;
-  }
+  trackCard.insertAdjacentHTML('beforeend', rowsHtml);
 }
 
-// --- MY COURSES ---------
+// --- MY COURSES (same card style as the full My Courses page) ---------
 
 const COURSE_THUMB_CLASSES = ['indigo', 'cyan', 'green'];
 const COURSE_ICONS = [
