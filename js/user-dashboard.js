@@ -132,7 +132,7 @@ function renderCurrentTrack(courses) {
   }
 }
 
-// --- MY COURSES (same card style as the full My Courses page) ---------
+// --- MY COURSES ---------
 
 const COURSE_THUMB_CLASSES = ['indigo', 'cyan', 'green'];
 const COURSE_ICONS = [

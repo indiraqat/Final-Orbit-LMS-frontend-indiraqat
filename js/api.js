@@ -1,5 +1,4 @@
 // API CLIENT — shared across every page that talks to the backend.
-// Include this before any page-specific script that calls apiFetch().
 
 const API_BASE_URL = 'https://web-production-88eb75.up.railway.app/api';
 

@@ -5,7 +5,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initRegisterForm();
 });
 
-// ROLE SELECTOR (Register page — UI only; see note in initRegisterForm)
+// ROLE SELECTOR
 
 function initRoleSelector() {
   const roleOptions = document.querySelectorAll('.role-option');
@@ -112,11 +112,6 @@ function initLoginForm() {
 }
 
 // REGISTER FORM — calls the real API
-// Note: the "I am a..." role selector is currently decorative. The backend
-// never allows self-registering as ADMIN (every new account is created as
-// INTERN, regardless of what's selected here) — that's an intentional
-// security rule. Promoting someone to ADMIN happens via an existing admin
-// using PUT /api/users/:id.
 
 function initRegisterForm() {
   const form = document.getElementById('register-form');
@@ -181,9 +176,6 @@ function initRegisterForm() {
       isValid = false;
     }
 
-    // This checkbox has `required` in the HTML, but the form also has
-    // `novalidate`, which disables native browser enforcement of that —
-    // so it has to be checked here explicitly, or it silently does nothing.
     if (termsInput && !termsInput.checked) {
       showToast('Please agree to the Terms of Service and Privacy Policy.', 'danger');
       isValid = false;

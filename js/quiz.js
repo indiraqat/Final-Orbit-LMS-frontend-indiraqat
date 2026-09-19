@@ -1,7 +1,4 @@
 // QUIZ TAKING — reads ?quizId= (and optionally &courseId=, &mode=result)
-// from the URL. Loads the real quiz, submits real answers, grades
-// server-side. Also supports a read-only "?mode=result" view for quizzes
-// already passed.
 
 document.addEventListener('DOMContentLoaded', initQuizPage);
 
@@ -187,7 +184,6 @@ function showFreshResult(result) {
 }
 
 // --- RESULT VIEW: viewing a past (already-passed) attempt -------------
-// We don't store per-question answer history, so this is a summary only.
 
 async function showPastResult(quizId, params) {
   document.getElementById('quiz-view')?.classList.add('is-hidden');
@@ -209,7 +205,6 @@ async function showPastResult(quizId, params) {
     if (titleEl) titleEl.textContent = quiz.title;
     document.title = `${quiz.title} — Orbit LMS`;
   } catch {
-    // title is cosmetic here — a failed fetch shouldn't block showing the score
   }
 
   const answersContainer = document.getElementById('quiz-result-answers');

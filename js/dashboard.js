@@ -37,8 +37,7 @@ function initDashboardSidebar() {
   });
 }
 
-// REAL SIDEBAR USER INFO — runs on every page, so nobody sees a stale
-// hardcoded name/avatar just because that page's own script didn't set it.
+// REAL SIDEBAR USER INFO 
 
 function populateSidebarUser() {
   const user = window.currentUser;
@@ -64,8 +63,7 @@ function populateSidebarUser() {
   }
 }
 
-// REAL QUIZ BADGE — only meaningful for interns; computes how many quizzes
-// are actually available to THIS user, instead of a hardcoded "2".
+// REAL QUIZ BADGE
 
 async function updateQuizBadge() {
   const user = window.currentUser;
@@ -86,11 +84,10 @@ async function updateQuizBadge() {
 
     badges.forEach(el => { el.textContent = availableCount; });
   } catch {
-    // Non-critical — leave the badge as-is if this fails, don't block the page
   }
 }
 
-// ORBIT PROGRESS RING — animates the stroke-dashoffset in on load (if present)
+// ORBIT PROGRESS RING 
 
 function initOrbitRing() {
   const ring = document.querySelector('.orbit-ring-progress');

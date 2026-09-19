@@ -1,5 +1,4 @@
-// QUIZZES LIST — flattens every quiz across enrolled courses into rows,
-// with real quiz IDs, real status, and working filters/search.
+// QUIZZES LIST 
 
 document.addEventListener('DOMContentLoaded', loadQuizzes);
 

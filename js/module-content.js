@@ -163,9 +163,6 @@ function wireMaterialModal() {
     if (type === 'video-link') {
       url = urlInput.value.trim() || null;
     } else {
-      // No real file upload endpoint yet — record the chosen filename as a
-      // placeholder so it's visible in the list, rather than pretending to
-      // upload something that isn't actually stored anywhere.
       const file = type === 'document' ? fileInputDoc.files[0] : fileInputVideo.files[0];
       url = file ? `(selected file: ${file.name} — not yet uploaded)` : null;
     }
@@ -294,8 +291,6 @@ function wireQuestionModal() {
   document.getElementById('add-question-btn')?.addEventListener('click', async () => {
     form.reset();
 
-    // A module can exist without a quiz yet — create one automatically the
-    // first time someone adds a question, rather than requiring a separate step.
     if (!currentModule.quiz) {
       try {
         const { data: quiz } = await apiFetch(`/modules/${currentModule.id}/quiz`, {

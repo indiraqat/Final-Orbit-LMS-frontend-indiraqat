@@ -1,6 +1,3 @@
-// AUTH GUARD — include this on every page that requires a logged-in user
-// (all dashboard/course/quiz/admin pages). Include api.js BEFORE this file.
-
 (function () {
   const token = getToken();
   const user = getCurrentUser();

@@ -1,4 +1,4 @@
-// PROFILE + SETTINGS — shared file (same as before). Works for both roles.
+// PROFILE + SETTINGS 
 
 document.addEventListener('DOMContentLoaded', () => {
   initPasswordToggleIcons();
@@ -12,9 +12,6 @@ document.addEventListener('DOMContentLoaded', () => {
   initDangerZone();
 });
 
-// The sidebar markup on profile.html/settings.html is shared between roles
-// but hardcoded to the intern menu (Dashboard -> user-dashboard.html, My
-// Courses, Quizzes). Fix it to match whoever's actually logged in.
 function fixSidebarNavForRole() {
   const user = window.currentUser;
   if (!user) return;
@@ -52,7 +49,7 @@ function roleLabel(role) {
   return role === 'ADMIN' ? 'Mentor' : 'Intern';
 }
 
-// Populates the sidebar/topbar avatar + name — same on every dashboard page.
+// Populates the sidebar/topbar avatar + name
 function populateSidebarUser() {
   const user = window.currentUser;
   if (!user) return;
@@ -196,10 +193,6 @@ function initProfilePasswordForm() {
 
     setButtonLoading(submitBtn, true);
     try {
-      // Note: the backend doesn't currently verify "current password" before
-      // accepting a new one — it just re-hashes whatever's sent. The field
-      // above is still required client-side as a safety prompt, but this is
-      // a known gap worth tightening on the backend later.
       await apiFetch(`/users/${window.currentUser.id}`, {
         method: 'PUT',
         body: { password: newInput.value },
@@ -222,9 +215,6 @@ function initAvatarEditButton() {
 }
 
 // --- SETTINGS PAGE ONLY ---------------------------------------------------
-// No backend fields exist yet for notification/language/timezone
-// preferences, so this stays local-only for now (not a real persistence
-// bug — there's just nowhere on the server to store it yet).
 
 function initSettingsForm() {
   const form = document.getElementById('settings-form');
@@ -242,7 +232,7 @@ function initDangerZone() {
   });
 }
 
-// --- SHARED: password visibility toggle (SVG-based, no emoji) -----------
+// --- SHARED: password visibility toggle -----------
 
 function initPasswordToggleIcons() {
   document.querySelectorAll('.toggle-password').forEach(btn => {
